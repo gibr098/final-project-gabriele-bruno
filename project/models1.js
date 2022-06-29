@@ -35,17 +35,21 @@ controls.dynamicDampingFactor = 0.3;
 
 
   const plane = new THREE.Object3D();
-  scene.add(plane);
+  const plane2 = new THREE.Object3D();
+  //scene.add(plane);
+  scene.add(plane2);
 
-  //cilinder for the body
-  const bodyGeometry = new THREE.CylinderGeometry(3, 1.5 , 20, 9, 25);
-  const bodyMaterial = new THREE.MeshPhongMaterial({color: 0x6688AA});
-  const bodyMesh = new THREE.Mesh(bodyGeometry, bodyMaterial);
 
-  bodyMesh.position.y = 1.4;
-  bodyMesh.rotation.x=Math.PI/2
-  bodyMesh.castShadow = true;
-  plane.add(bodyMesh);
+//PLANE 1
+//cilinder for the body
+const bodyGeometry = new THREE.CylinderGeometry(3, 1.5 , 20, 9, 25);
+const bodyMaterial = new THREE.MeshPhongMaterial({color: 0x6688AA});
+const bodyMesh = new THREE.Mesh(bodyGeometry, bodyMaterial);
+
+bodyMesh.position.y = 1.4;
+bodyMesh.rotation.x=Math.PI/2
+bodyMesh.castShadow = true;
+plane.add(bodyMesh);
 
 
 const torusGeometry = new THREE.TorusGeometry( 2.6, 0.5, 6, 9 );
@@ -249,13 +253,168 @@ bodyMesh.add(pole10);
 bodyMesh.add(pole11);
 bodyMesh.add(pole12);
 
+//guns
+const gunGeometry = new THREE.CylinderGeometry( 0.5, 0.5, 3.5, 32 );
+const gunMaterial = new THREE.MeshBasicMaterial( {color: 0x505050} );
+const gunR = new THREE.Mesh( gunGeometry, gunMaterial );
+gunR.position.set(1, -0.8, 0);
+gunR.rotation.z=Math.PI/2
+const gunL = new THREE.Mesh( gunGeometry, gunMaterial );
+gunL.position.set(1, 0.8 , 0);
+gunL.rotation.z=Math.PI/2
+
+const Pmaterial3 = new THREE.MeshBasicMaterial( {color: 0x505050} );
+const pole14 = new THREE.Mesh( Pgeometry2, Pmaterial3 );
+const pole15 = new THREE.Mesh( Pgeometry2, Pmaterial3 );
+pole14.position.set(3, 6.5,-1);
+pole14.rotation.z=Math.PI/2;
+pole15.position.set(-3, 6.5,-1);
+pole15.rotation.z=Math.PI/2;
+
+pole14.add(gunR);
+pole15.add(gunL);
+
+bodyMesh.add(pole14);
+bodyMesh.add(pole15);
+
+
+
+
+//________________________________________________________________________________
+
+//PLANE 2
+//cilinder for the body
+const bodyGeometryp2 = new THREE.CylinderGeometry(3, 1 , 20, 9, 25);
+const bodyMaterialp2= new THREE.MeshPhongMaterial({color: 0x00ff00});
+const bodyMeshp2 = new THREE.Mesh(bodyGeometryp2, bodyMaterialp2);
+
+bodyMeshp2.position.y = 1.4;
+bodyMeshp2.rotation.x=Math.PI/2
+bodyMeshp2.castShadow = true;
+plane2.add(bodyMeshp2);
+
+const tipGeometryp2 = new THREE.CylinderGeometry( 1.5, 3, 2, 9 );
+const tipMaterialp2 = new THREE.MeshBasicMaterial( {color: 0xff0000} );
+const tipCylinderp2 = new THREE.Mesh( tipGeometryp2, tipMaterialp2 );
+tipCylinderp2.position.set(0,11,0);
+bodyMeshp2.add( tipCylinderp2 );
+
+const geometry4 = new THREE.ConeGeometry( 1.5, 1, 9 );
+const material4 = new THREE.MeshBasicMaterial( {color: 0xffff00} );
+const cone4 = new THREE.Mesh( geometry4, material4 );
+cone4.position.set(0,1.5,0);
+tipCylinderp2.add( cone4 );
+
+
+//propeller
+const propGeometryp2 = new THREE.BoxGeometry( 1, 10, 0.2 );
+const propMaterialp2 = new THREE.MeshBasicMaterial( {color: 0x7CFC00} );
+const propellerp2A = new THREE.Mesh( propGeometryp2, propMaterialp2 );
+const propellerp2B = new THREE.Mesh( propGeometryp2, propMaterialp2 );
+propellerp2A.position.set(0, 1.35, 12);
+propellerp2B.position.set(0, 0,0 );
+propellerp2B.rotation.z=Math.PI/2
+propellerp2A.add( propellerp2B );
+plane2.add( propellerp2A );
+
+//wings
+const wings = new THREE.Shape()
+					wings.moveTo( 20, 0 )
+					wings.lineTo( 0, 0 )
+					wings.lineTo( 0, 3 )
+					wings.lineTo( 16, 6 );
+          wings.lineTo( 24, 6 );
+          wings.lineTo( 40, 3 );
+          wings.lineTo( 40, 0 );
+const extrudeSettingsW = {
+  depth: 0.5,
+  bevelEnabled: true,
+  bevelSegments: 0,
+  steps: 2,
+  bevelSize: 0.5,
+  bevelOffset: 0,
+	bevelSegments: 1
+}
+
+const wgeometry = new THREE.ExtrudeGeometry( wings, extrudeSettingsW );
+const wmaterial = new THREE.MeshPhongMaterial( {color: 0xff0000} );
+const wmesh = new THREE.Mesh( wgeometry, wmaterial );
+
+wmesh.position.set(-20, 2, 1.5);
+bodyMeshp2.add(wmesh);
+
+//wheels
+
+bodyMeshp2.add(pole7.clone());
+bodyMeshp2.add(pole8.clone());
+
+bodyMeshp2.add(pole9.clone());
+bodyMeshp2.add(pole10.clone());
+
+const wheelp2 = new THREE.Mesh( wheelGeometry, wheelMaterial );
+wheelp2.position.set(0,-8,1.2);
+wheelp2.rotation.z=Math.PI/2
+bodyMeshp2.add(wheelp2);
+
+
+
+
+//spoilers
+const sgeometry2 = new THREE.BoxGeometry( 11, 1.5, 0.5 );
+const smaterial2 = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+const spoilerp2 = new THREE.Mesh( sgeometry2, smaterial2 );
+spoilerp2.position.set(0,-9,-0.5);
+bodyMeshp2.add( spoilerp2 );
+const smesh2 = new THREE.Mesh( sgeometry, smaterial );
+smesh2.position.set(0,-7.5,-1.4);
+smesh2.rotation.y=Math.PI/2
+smesh2.rotation.x=-Math.PI/2
+bodyMeshp2.add(smesh2);
+
+
+//cabin
+const cgeometry = new THREE.TorusGeometry( 2, 1.5, 16, 100, Math.PI );
+const cmaterial = new THREE.MeshPhongMaterial( { color: 0x000000 } );
+const cabin = new THREE.Mesh( cgeometry, cmaterial );
+cabin.rotation.y=Math.PI/2
+cabin.rotation.x=-Math.PI/2
+cabin.position.set(0,0,0);
+bodyMeshp2.add( cabin );
+
+//guns
+const gunR2 = new THREE.Mesh( gunGeometry, gunMaterial );
+gunR2.position.set(-1.2 , 7, -2);
+gunR2.rotation.x=-Math.PI/24
+const gunL2 = new THREE.Mesh( gunGeometry, gunMaterial );
+gunL2.position.set(1.2 , 7 , -2);
+gunL2.rotation.x=-Math.PI/24
+bodyMeshp2.add( gunR2 );
+bodyMeshp2.add( gunL2 );
+
+const gunR3 = pole14.clone();
+const gunR4 = pole14.clone();
+const gunL3= pole15.clone();
+const gunL4 = pole15.clone();
+gunR3.rotation.y=-Math.PI/2
+gunR3.position.set(-9,3,2.6);
+gunR4.rotation.y=-Math.PI/2
+gunR4.position.set(-18,3,2.6);
+gunL3.rotation.y=Math.PI/2
+gunL3.position.set(9,3,2.6);
+gunL4.rotation.y=Math.PI/2
+gunL4.position.set(18,3,2.6);
+bodyMeshp2.add( gunR3 );
+bodyMeshp2.add( gunL3 );
+bodyMeshp2.add( gunR4 );
+bodyMeshp2.add( gunL4 );
+
 
 
   {
     const color = 0xFFFFFF;
     const intensity = 1;
     const light = new THREE.DirectionalLight(color, intensity);
-    light.position.set(0, 0, 0);
+    light.position.set(5, 5, 5);
     scene.add(light);
   }
   function resizeRendererToDisplaySize(renderer) {
@@ -278,6 +437,7 @@ bodyMesh.add(pole12);
     }
 
     propeller.rotation.z=time;
+    propellerp2A.rotation.z=time;
     //plane.rotation.z=time;
 
     controls.update();

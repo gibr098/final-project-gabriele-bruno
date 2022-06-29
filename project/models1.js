@@ -158,10 +158,10 @@ bodyMesh.add(pole6);
 
 //spoilers
 const spoiler = new THREE.Shape()
-					spoiler.moveTo( 1.5, 0 )
+					spoiler.moveTo( 2, 0 )
 					spoiler.lineTo( 0, 0 )
-					spoiler.lineTo( 1.45, 1.5 )
-					spoiler.lineTo( 1.5, 1.5 ); // close path
+					spoiler.lineTo( 1.8, 2 )
+					spoiler.lineTo( 2, 2 ); // close path
 const extrudeSettings = {
   depth: 0.5,
   bevelEnabled: true,

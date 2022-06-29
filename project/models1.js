@@ -36,7 +36,9 @@ controls.dynamicDampingFactor = 0.3;
 
   const plane = new THREE.Object3D();
   const plane2 = new THREE.Object3D();
-  //scene.add(plane);
+  plane.position.set(-20,0,0);
+  scene.add(plane);
+  plane2.position.set(20,0,0);
   scene.add(plane2);
 
 

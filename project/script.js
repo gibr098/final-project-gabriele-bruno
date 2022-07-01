@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import * as MODELS from './mscript.js';
 import { TrackballControls } from 'https://threejsfundamentals.org/threejs/resources/threejs/r127/examples/jsm/controls/TrackballControls.js'
 import { OrbitControls } from 'https://threejsfundamentals.org/threejs/resources/threejs/r127/examples/jsm/controls/OrbitControls.js'
-
+//import * as CONTROLS from './inputHandler.js'
 function main() {
   const canvas = document.querySelector('#c');
   const renderer = new THREE.WebGLRenderer({canvas});
@@ -111,6 +111,7 @@ plane.position.set(0,0,0);
 plane.scale.set(0.5,0.5,0.5);
 */
 var plane=new MODELS.Plane2();
+plane.mesh.scale.set(0.5, 0.5, 0.5);
 scene.add(plane.mesh);
 
 
@@ -124,33 +125,52 @@ scene.add(plane.mesh);
     }
     return needResize;
   }
-  function setupKeyControls() {
-    document.addEventListener("keydown",function(event) {
-      switch (event.keyCode) {
-        case 37:
-          plane.mesh.position.x+=0.1;
-        break;
-        case 38:
-          plane.mesh.position.z+=0.1;
-        break;
-        case 39:
-          plane.mesh.position.x-=0.1;
-        break;
-        case 40:
-          plane.mesh.position.z-=0.1;
-        break;
-      }
-    });
-  }
 
+//Mouse control
 /*
-const controlPlane = new OrbitControls( plane, renderer.domElement );
-controlPlane.keys = {
-	LEFT: 'ArrowLeft', //left arrow
-	UP: 'ArrowUp', // up arrow
-	RIGHT: 'ArrowRight', // right arrow
-	BOTTOM: 'ArrowDown' // down arrow
-}*/
+  document.addEventListener("mousemove", mouseMoveHandler);
+  function mouseMoveHandler(e) {
+    plane.mesh.position.x = -(e.pageX - canvas.offsetLeft);
+    plane.mesh.position.z = -(e.pageY - canvas.offsetTop);
+  }
+*/
+//Keyboard arrows controlling
+document.addEventListener('keydown', keyDownHandler, false);
+document.addEventListener('keyup', keyUpHandler, false);
+var rightPressed = false;
+var leftPressed = false;
+var upPressed = false;
+var downPressed = false;
+function keyDownHandler(event) {
+  if(event.keyCode == 39) {
+      rightPressed = true;
+  }
+  else if(event.keyCode == 37) {
+      leftPressed = true;
+  }
+  if(event.keyCode == 40) {
+    downPressed = true;
+  }
+  else if(event.keyCode == 38) {
+    upPressed = true;
+  }
+}
+
+function keyUpHandler(event) {
+  if(event.keyCode == 39) {
+      rightPressed = false;
+  }
+  else if(event.keyCode == 37) {
+      leftPressed = false;
+  }
+  if(event.keyCode == 40) {
+    downPressed = false;
+  }
+  else if(event.keyCode == 38) {
+    upPressed = false;
+  }
+}
+
 
 
   function render(time) {
@@ -168,12 +188,28 @@ controlPlane.keys = {
       cube.rotation.y = rot;
     });
 
-    setupKeyControls();
-    //updatePlane();
     //cylinder.rotation.x = time;
     //plane.rotation.z=2*time;
     
-    group.rotation.x=0.2*time;
+    const vel=1.0;
+    if(rightPressed) {
+      plane.mesh.position.x -= vel;
+      plane.mesh.rotation.z+=0.02;
+
+     }
+    else if(leftPressed) {
+      plane.mesh.position.x += vel;
+      plane.mesh.rotation.z-=0.02;
+
+    }
+    if(downPressed) {
+      plane.mesh.position.z -= vel;
+      plane.mesh.rotation.x-=0.01;
+    }
+    else if(upPressed) {
+      plane.mesh.position.z += vel;
+      plane.mesh.rotation.x+=0.01;
+    }
 
 
     controls.update();

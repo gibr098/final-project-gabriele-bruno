@@ -142,6 +142,8 @@ var leftPressed = false;
 var upPressed = false;
 var downPressed = false;
 var spacebarPressed=false;
+var bullet;
+
 function keyDownHandler(event) {
   
   if(event.keyCode == 39) {
@@ -158,12 +160,17 @@ function keyDownHandler(event) {
   }
   if(event.keyCode==32){
     spacebarPressed = true;
-    plane.b=plane.bullet.clone();
-    plane.b.position.x=plane.mesh.position.x;
-    plane.b.position.y=plane.mesh.position.y;
-    plane.b.position.z=plane.mesh.position.z;
-    scene.add( plane.b );
+    generateBullet();
   }
+}
+
+
+function generateBullet(){
+  bullet=new MODELS.Bullet();
+  bullet.mesh.position.x=plane.mesh.position.x;
+  bullet.mesh.position.y=plane.mesh.position.y;
+  bullet.mesh.position.z=plane.mesh.position.z;
+  scene.add( bullet.mesh );
 }
 
 
@@ -229,8 +236,7 @@ function keyUpHandler(event) {
     
 
     if (spacebarPressed){
-      plane.b.position.z += 5*vel
-      //plane.b.bullet.
+      bullet.shoot(5);
     }
 
     

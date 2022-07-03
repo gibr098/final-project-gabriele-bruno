@@ -447,13 +447,29 @@ bodyMeshp2.add( gunR4 );
 bodyMeshp2.add( gunL4 );
 
 //Bullets
+/*
 const BulletGeometry = new THREE.BoxGeometry( 0.5, 2.5, 0.5 );
 const BulletMaterial = new THREE.MeshPhongMaterial( {color: 0xD4AF37} );
 this.bullet = new THREE.Mesh( BulletGeometry, BulletMaterial );
-this.bullet.position.set(-9,5, 3.5);
-this.bullet.rotation.x=Math.PI/2;
-//this.mesh.add( this.bullet );
+this.bullet.position.set(-9,5, 3.5);*/
+//this.bullet=new Bullet();
+//this.bullet.mesh.position.set(-9,5, 3.5);
+//this.mesh.add( this.bullet.mesh );
 }
 
+
+export var Bullet = function(){
+  const BulletGeometry = new THREE.BoxGeometry( 0.5, 2.5, 0.5 );
+  const BulletMaterial = new THREE.MeshPhongMaterial( {color: 0xD4AF37} );
+  this.mesh= new THREE.Mesh( BulletGeometry, BulletMaterial );
+  this.mesh.rotation.x=Math.PI/2;
+
+  this.shoot=function(vel){
+    this.mesh.position.z+=vel;
+  }
+
+
+
+}
 
 

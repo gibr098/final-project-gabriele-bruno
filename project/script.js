@@ -43,7 +43,7 @@ controls.dynamicDampingFactor = 0.3;
     const color = 0xFFFFFF;
     const intensity = 1;
     const light = new THREE.DirectionalLight(color, intensity);
-    light.position.set(10, 20, 4);
+    light.position.set(-20, 20,20);
     scene.add(light);
   }
 
@@ -141,7 +141,9 @@ var rightPressed = false;
 var leftPressed = false;
 var upPressed = false;
 var downPressed = false;
+var spacebarPressed=false;
 function keyDownHandler(event) {
+  
   if(event.keyCode == 39) {
       rightPressed = true;
   }
@@ -154,7 +156,16 @@ function keyDownHandler(event) {
   else if(event.keyCode == 38) {
     upPressed = true;
   }
+  if(event.keyCode==32){
+    spacebarPressed = true;
+    plane.b=plane.bullet.clone();
+    plane.b.position.x=plane.mesh.position.x;
+    plane.b.position.y=plane.mesh.position.y;
+    plane.b.position.z=plane.mesh.position.z;
+    scene.add( plane.b );
+  }
 }
+
 
 function keyUpHandler(event) {
   if(event.keyCode == 39) {
@@ -168,6 +179,10 @@ function keyUpHandler(event) {
   }
   else if(event.keyCode == 38) {
     upPressed = false;
+  }
+  if(event.keyCode==32){
+    //spacebarPressed = false;
+    
   }
 }
 
@@ -194,27 +209,36 @@ function keyUpHandler(event) {
     const vel=1.0;
     if(rightPressed) {
       plane.mesh.position.x -= vel;
-      plane.mesh.rotation.z+=0.02;
+      //plane.mesh.rotation.z+=0.02;
 
      }
     else if(leftPressed) {
       plane.mesh.position.x += vel;
-      plane.mesh.rotation.z-=0.02;
+      //plane.mesh.rotation.z-=0.02;
 
     }
     if(downPressed) {
       plane.mesh.position.z -= vel;
-      plane.mesh.rotation.x-=0.01;
+      //plane.mesh.rotation.x-=0.01;
     }
     else if(upPressed) {
       plane.mesh.position.z += vel;
-      plane.mesh.rotation.x+=0.01;
+      //plane.mesh.rotation.x+=0.01;
     }
+
+    
+
+    if (spacebarPressed){
+      plane.b.position.z += 5*vel
+      //plane.b.bullet.
+    }
+
+    
 
 
     controls.update();
     plane.propeller.rotation.z=20*time;
-    
+
     renderer.render(scene, camera);
 
     requestAnimationFrame(render);

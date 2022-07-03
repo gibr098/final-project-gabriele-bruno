@@ -445,6 +445,14 @@ bodyMeshp2.add( gunR3 );
 bodyMeshp2.add( gunL3 );
 bodyMeshp2.add( gunR4 );
 bodyMeshp2.add( gunL4 );
+
+//Bullets
+const BulletGeometry = new THREE.BoxGeometry( 0.5, 2.5, 0.5 );
+const BulletMaterial = new THREE.MeshPhongMaterial( {color: 0xD4AF37} );
+this.bullet = new THREE.Mesh( BulletGeometry, BulletMaterial );
+this.bullet.position.set(-9,5, 3.5);
+this.bullet.rotation.x=Math.PI/2;
+//this.mesh.add( this.bullet );
 }
 
 

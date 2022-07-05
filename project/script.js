@@ -1,7 +1,9 @@
 import * as THREE from 'three';
 import * as MODELS from './mscript.js';
+//import * as FUNCTIONS from './models.js';
 import { TrackballControls } from 'https://threejsfundamentals.org/threejs/resources/threejs/r127/examples/jsm/controls/TrackballControls.js'
 import { OrbitControls } from 'https://threejsfundamentals.org/threejs/resources/threejs/r127/examples/jsm/controls/OrbitControls.js'
+import { randomPosition } from './models.js';
 //import * as CONTROLS from './inputHandler.js'
 function main() {
   const canvas = document.querySelector('#c');
@@ -24,7 +26,7 @@ function main() {
     return new THREE.PerspectiveCamera(fov, aspect, zNear, zFar);
   }
   const camera = makeCamera();
-  camera.position.set(0, 90, -30)
+  camera.position.set(0, 140, -30)
   camera.lookAt(0, 0, 0);
 
 const controls = new TrackballControls(camera, renderer.domElement );
@@ -110,21 +112,51 @@ const plane=PLANE.createPlane1();
 plane.position.set(0,0,0);
 plane.scale.set(0.5,0.5,0.5);
 */
+
+var enemies=[];
+var enemy;
+
+
 var plane=new MODELS.Plane2();
 plane.mesh.scale.set(0.5, 0.5, 0.5);
+plane.mesh.position.set(0,0,-30);
 scene.add(plane.mesh);
 
+var plane1=new MODELS.Plane();
+plane1.mesh.scale.set(0.5, 0.5, 0.5);
+scene.add(plane1.mesh);
 
-  function resizeRendererToDisplaySize(renderer) {
-    const canvas = renderer.domElement;
-    const width = canvas.clientWidth;
-    const height = canvas.clientHeight;
-    const needResize = canvas.width !== width || canvas.height !== height;
-    if (needResize) {
-      renderer.setSize(width, height, false);
-    }
-    return needResize;
+var plane2=new MODELS.Plane();
+plane2.mesh.scale.set(0.5, 0.5, 0.5);
+scene.add(plane2.mesh);
+
+
+plane1.mesh.position.set(-20,0,30);
+plane2.mesh.position.set(20,0,15);
+
+
+plane1.mesh.rotation.y=Math.PI;
+plane2.mesh.rotation.y=Math.PI;
+
+
+//generatePlane();
+
+
+enemies.push(plane1);
+enemies.push(plane2);
+
+function resizeRendererToDisplaySize(renderer) {
+  const canvas = renderer.domElement;
+  const width = canvas.clientWidth;
+  const height = canvas.clientHeight;
+  const needResize = canvas.width !== width || canvas.height !== height;
+  if (needResize) {
+    renderer.setSize(width, height, false);
   }
+  return needResize;
+}
+
+
 
 //Mouse control
 /*
@@ -134,6 +166,9 @@ scene.add(plane.mesh);
     plane.mesh.position.z = -(e.pageY - canvas.offsetTop);
   }
 */
+
+
+
 //Keyboard arrows controlling
 document.addEventListener('keydown', keyDownHandler, false);
 document.addEventListener('keyup', keyUpHandler, false);
@@ -142,7 +177,10 @@ var leftPressed = false;
 var upPressed = false;
 var downPressed = false;
 var spacebarPressed=false;
-var bullet;
+var R1bullets=[];
+var L1bullets=[];
+var flag=true;
+
 
 function keyDownHandler(event) {
   
@@ -161,17 +199,18 @@ function keyDownHandler(event) {
   if(event.keyCode==32){
     spacebarPressed = true;
     generateBullet();
+    
+  }
+
+
+  //spawn plane
+  if(event.keyCode==83){
+    generatePlane()
+    console.log(enemies)
   }
 }
 
 
-function generateBullet(){
-  bullet=new MODELS.Bullet();
-  bullet.mesh.position.x=plane.mesh.position.x;
-  bullet.mesh.position.y=plane.mesh.position.y;
-  bullet.mesh.position.z=plane.mesh.position.z;
-  scene.add( bullet.mesh );
-}
 
 
 function keyUpHandler(event) {
@@ -193,8 +232,78 @@ function keyUpHandler(event) {
   }
 }
 
+var bulletr1, bulletl1;
+function generateBullet(){
+  bulletr1=new MODELS.Bullet();
+  bulletr1.mesh.position.x=plane.mesh.position.x + plane.bulletr1_position_x
+  bulletr1.mesh.position.y=plane.mesh.position.y + plane.bulletr1_position_y
+  bulletr1.mesh.position.z=plane.mesh.position.z + plane.bulletr1_position_z
+  scene.add( bulletr1.mesh );
+  R1bullets.push(bulletr1);
+
+  bulletl1=new MODELS.Bullet();
+  bulletl1.mesh.position.x=plane.mesh.position.x + plane.bulletl1_position_x;
+  bulletl1.mesh.position.y=plane.mesh.position.y + plane.bulletl1_position_y;
+  bulletl1.mesh.position.z=plane.mesh.position.z + plane.bulletl1_position_z;
+  scene.add( bulletl1.mesh );
+  L1bullets.push(bulletl1);
+}
 
 
+function generatePlane(){
+  enemy=new MODELS.Plane2();
+  enemy.mesh.position.set(randomPosition(-40,40) , 0, randomPosition(0, 60));
+  enemy.mesh.scale.set(0.5, 0.5, 0.5)
+  enemy.mesh.rotation.y=Math.PI;
+  scene.add( enemy.mesh );
+  enemies.push(enemy);
+  console.log(enemies);
+}
+
+
+function movePlane(enemy){
+  if(enemy.mesh.position.x < 50.0 && flag==true){
+    enemy.mesh.position.x+=0.5;
+    if(enemy.mesh.position.x>=50.0){ flag=false;}
+  }else if(enemy.mesh.position.x > -50 && flag==false){
+    enemy.mesh.position.x-=0.5;
+    if(enemy.mesh.position.x<=-50){flag=true;}
+  }
+}
+
+var flag1=true;
+function PlaneMovement(pl,angle){
+  if(pl.mesh.rotation.z < angle && flag1==true){
+    pl.mesh.rotation.z+=0.02;
+    /*
+    if(pl.mesh.rotation.z>=angle){ flag1=false;}
+  }else if(pl.mesh.rotation.z > -angle && flag1==false){
+    pl.mesh.rotation.z-=0.02;
+    if(pl.mesh.rotation.z<=-angle){flag1=true;}*/
+  }
+}
+
+
+
+function collision(bullet, plane){
+  var c=(bullet.mesh.position.x<=plane.mesh.position.x+10 && bullet.mesh.position.x>=plane.mesh.position.x-10) &&
+        (bullet.mesh.position.z<=plane.mesh.position.z+10 && bullet.mesh.position.z>=plane.mesh.position.z-10) &&
+        (bullet.mesh.position.y<=plane.mesh.position.y+10 && bullet.mesh.position.y>=plane.mesh.position.y-10);
+  if(c){
+    //console.log(c,"Collision");
+    plane.hit=true;
+    bullet.mesh.position.set(0,0,0);
+    scene.remove(bullet.mesh);
+  }else{
+    if(bullet.mesh.position.z>=100){
+      scene.remove(bullet.mesh);
+    }
+    //console.log(c,"NO collision");
+  }
+}
+
+
+const angle=Math.PI/6;
   function render(time) {
     time *= 0.001;  // convert time to seconds
     if (resizeRendererToDisplaySize(renderer)) {
@@ -216,59 +325,94 @@ function keyUpHandler(event) {
     const vel=1.0;
     if(rightPressed) {
       plane.mesh.position.x -= vel;
-      //plane.mesh.rotation.z+=0.02;
+      if(plane.mesh.rotation.z < angle){
+        plane.mesh.rotation.z+=0.05;
+      }
 
      }
     else if(leftPressed) {
       plane.mesh.position.x += vel;
-      //plane.mesh.rotation.z-=0.02;
+      if(plane.mesh.rotation.z > -angle){
+        plane.mesh.rotation.z-=0.05;
+      }
 
     }
     if(downPressed) {
       plane.mesh.position.z -= vel;
-      //plane.mesh.rotation.x-=0.01;
+      if(plane.mesh.rotation.x > -angle/2){
+        plane.mesh.rotation.x-=0.05;
+      }
     }
     else if(upPressed) {
       plane.mesh.position.z += vel;
-      //plane.mesh.rotation.x+=0.01;
+      if(plane.mesh.rotation.x < angle){
+        plane.mesh.rotation.x+=0.05;
+      }
     }
 
-    
+    if(!rightPressed) {
+      if(plane.mesh.rotation.z > 0){
+        plane.mesh.rotation.z-=0.1;
+      }
+    }
+    if(!leftPressed) {
+      if(plane.mesh.rotation.z < 0){
+        plane.mesh.rotation.z+=0.1;
+      }
+    }
+    if(!upPressed) {
+      if(plane.mesh.rotation.x > 0){
+        plane.mesh.rotation.x-=0.1;
+      }
+    }
+    if(!downPressed) {
+      if(plane.mesh.rotation.x < 0){
+        plane.mesh.rotation.x+=0.1;
+      }
+    }
 
+    var bullet_velocity=2;
     if (spacebarPressed){
-      bullet.shoot(5);
+      //bullet.shoot(5);
+      R1bullets.forEach(b => {
+        b.mesh.position.z+=bullet_velocity;
+        enemies.forEach(p => {
+          collision(b,p);
+        });
+
+      });
+      L1bullets.forEach(b => {
+        b.mesh.position.z+=bullet_velocity;
+        enemies.forEach(p => {
+          collision(b,p);
+        });
+      });
     }
 
     
-
+    movePlane(plane1);
+    //movePlane(plane2);
+    //plane.mesh.rotation.x=Math.PI/6;
 
     controls.update();
+
+    enemies.forEach(p => {
+      p.propeller.rotation.z=20*time;
+      p.destroy();
+      if(p.mesh.position.y<=-100){
+        scene.remove(p.mesh);
+      }
+      //movePlane(p);
+    });
+
     plane.propeller.rotation.z=20*time;
+    
 
     renderer.render(scene, camera);
 
     requestAnimationFrame(render);
   }
   requestAnimationFrame(render);
-
-
-  //console.log(canvas.clientWidth);
-  //scene.add(cube);
-
-  //renderer.render(scene, camera);
-  /*
-  function render(time) {
-    time *= 0.001;  // convert time to seconds
-
-    cube.rotation.x = time;
-    cube.rotation.y = time;
-
-    renderer.render(scene, camera);
-
-    requestAnimationFrame(render);
-  }
-  requestAnimationFrame(render);
-  */
 
 }
 

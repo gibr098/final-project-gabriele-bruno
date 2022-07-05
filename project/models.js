@@ -730,3 +730,21 @@ export function createPlane1(){
   return plane;
   
   }
+
+
+
+
+  export function resizeRendererToDisplaySize(renderer) {
+    const canvas = renderer.domElement;
+    const width = canvas.clientWidth;
+    const height = canvas.clientHeight;
+    const needResize = canvas.width !== width || canvas.height !== height;
+    if (needResize) {
+      renderer.setSize(width, height, false);
+    }
+    return needResize;
+  }
+
+  export function randomPosition(min, max) { // min and max included 
+    return Math.floor(Math.random() * (max - min + 1) + min)
+  }

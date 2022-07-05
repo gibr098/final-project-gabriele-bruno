@@ -122,13 +122,13 @@ function createLights() {
 	shadowLight.shadow.camera.near = 1;
 	shadowLight.shadow.camera.far = 1000;
 
-	// define the resolution of the shadow; the higher the better, 
+	// define the resolution of the shadow; the higher the better,
 	// but also the more expensive and less performant
 	shadowLight.shadow.mapSize.width = 2048;
 	shadowLight.shadow.mapSize.height = 2048;
 	
 	// to activate the lights, just add them to the scene
-	scene.add(hemisphereLight);  
+	scene.add(hemisphereLight);
 	scene.add(shadowLight);
 }
 
@@ -136,7 +136,7 @@ function createLights() {
 
     
 var plane;
-function createplane(){ 
+function createplane(){
 	plane= new MODELS.Plane();
     plane.mesh.scale.set(0.25,0.25,0.25);
 	plane.mesh.position.y = 100;

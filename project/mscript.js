@@ -241,6 +241,22 @@ export var Plane=function(){
   bodyMesh.add(pole14);
   bodyMesh.add(pole15);
 
+  this.bulletr1_position_x= -2;
+  this.bulletr1_position_y= 0;
+  this.bulletr1_position_z= 3.5;
+  this.bulletl1_position_x= 2;
+  this.bulletl1_position_y= 0;
+  this.bulletl1_position_z= 3.5;
+
+  this.hit=false;
+  
+  this.destroy=function(){
+    if(this.hit){
+      this.mesh.position.y-=1;
+      this.mesh.rotation.y+=0.1;
+    }
+  }
+
 }
 
 
@@ -446,15 +462,30 @@ bodyMeshp2.add( gunL3 );
 bodyMeshp2.add( gunR4 );
 bodyMeshp2.add( gunL4 );
 
+this.hit=false;
+  
+  this.destroy=function(){
+    if(this.hit){
+      this.mesh.position.y-=1;
+      this.mesh.rotation.y+=0.1;
+    }
+  }
+
 //Bullets
-/*
-const BulletGeometry = new THREE.BoxGeometry( 0.5, 2.5, 0.5 );
-const BulletMaterial = new THREE.MeshPhongMaterial( {color: 0xD4AF37} );
-this.bullet = new THREE.Mesh( BulletGeometry, BulletMaterial );
-this.bullet.position.set(-9,5, 3.5);*/
+
+//const BulletGeometry = new THREE.BoxGeometry( 0.5, 2.5, 0.5 );
+//const BulletMaterial = new THREE.MeshPhongMaterial( {color: 0xD4AF37} );
+//this.bullet = new THREE.Mesh( BulletGeometry, BulletMaterial );
+this.bulletr1_position_x= -9;
+this.bulletr1_position_y= 0;
+this.bulletr1_position_z= 3.5;
+this.bulletl1_position_x= 9;
+this.bulletl1_position_y= 0;
+this.bulletl1_position_z= 3.5;
 //this.bullet=new Bullet();
 //this.bullet.mesh.position.set(-9,5, 3.5);
 //this.mesh.add( this.bullet.mesh );
+
 }
 
 
@@ -467,8 +498,9 @@ export var Bullet = function(){
   this.shoot=function(vel){
     this.mesh.position.z+=vel;
   }
-
-
+  this.stop=function(){
+    this.mesh.position.z+=0;
+  }
 
 }
 

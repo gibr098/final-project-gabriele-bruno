@@ -119,7 +119,7 @@ var enemy;
 
 var plane=new MODELS.Plane2();
 plane.mesh.scale.set(0.5, 0.5, 0.5);
-plane.mesh.position.set(0,0,-30);
+plane.mesh.position.set(0, 0, -30);
 scene.add(plane.mesh);
 
 var plane1=new MODELS.Plane();
@@ -180,6 +180,7 @@ var spacebarPressed=false;
 var R1bullets=[];
 var L1bullets=[];
 var flag=true;
+var enemies_number=2;
 
 
 function keyDownHandler(event) {
@@ -203,7 +204,7 @@ function keyDownHandler(event) {
   }
 
 
-  //spawn plane
+  //spawn plane key s
   if(event.keyCode==83){
     generatePlane()
     console.log(enemies)
@@ -258,6 +259,7 @@ function generatePlane(){
   scene.add( enemy.mesh );
   enemies.push(enemy);
   console.log(enemies);
+  enemies_number+=1;
 }
 
 
@@ -292,6 +294,10 @@ function collision(bullet, plane){
   if(c){
     //console.log(c,"Collision");
     plane.hit=true;
+    if(plane.hit=true){
+      enemies_number-=1;
+    }
+    
     bullet.mesh.position.set(0,0,0);
     scene.remove(bullet.mesh);
   }else{
@@ -301,6 +307,9 @@ function collision(bullet, plane){
     //console.log(c,"NO collision");
   }
 }
+
+//spawn an enemy plane each second
+//setInterval(function() {generatePlane()}, 1000);
 
 
 const angle=Math.PI/6;
@@ -323,27 +332,27 @@ const angle=Math.PI/6;
     //plane.rotation.z=2*time;
     
     const vel=1.0;
-    if(rightPressed) {
+    if(rightPressed&& plane.mesh.position.x>-90) {
       plane.mesh.position.x -= vel;
       if(plane.mesh.rotation.z < angle){
         plane.mesh.rotation.z+=0.05;
       }
 
      }
-    else if(leftPressed) {
+    else if(leftPressed && plane.mesh.position.x<90) {
       plane.mesh.position.x += vel;
       if(plane.mesh.rotation.z > -angle){
         plane.mesh.rotation.z-=0.05;
       }
 
     }
-    if(downPressed) {
+    if(downPressed && plane.mesh.position.z>-40) {
       plane.mesh.position.z -= vel;
       if(plane.mesh.rotation.x > -angle/2){
         plane.mesh.rotation.x-=0.05;
       }
     }
-    else if(upPressed) {
+    else if(upPressed && plane.mesh.position.z<40) {
       plane.mesh.position.z += vel;
       if(plane.mesh.rotation.x < angle){
         plane.mesh.rotation.x+=0.05;
@@ -393,6 +402,9 @@ const angle=Math.PI/6;
     movePlane(plane1);
     //movePlane(plane2);
     //plane.mesh.rotation.x=Math.PI/6;
+
+   
+    console.log(enemies_number);
 
     controls.update();
 

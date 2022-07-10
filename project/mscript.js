@@ -252,8 +252,11 @@ export var Plane=function(){
   
   this.destroy=function(){
     if(this.hit){
-      this.mesh.position.y-=1;
-      this.mesh.rotation.y+=0.1;
+      //this.mesh.position.y-=0.002*this.mesh.position.z*this.mesh.position.z;
+      this.mesh.position.y-=0.002*125;
+      this.mesh.position.z-=0.5;
+      this.mesh.rotation.x-=0.02;
+      this.mesh.rotation.z+=0.1;
     }
   }
 
@@ -466,8 +469,13 @@ this.hit=false;
   
   this.destroy=function(){
     if(this.hit){
-      this.mesh.position.y-=1;
-      this.mesh.rotation.y+=0.1;
+      //this.mesh.position.y-=1;
+      //this.mesh.rotation.z+=0.1;
+      //this.mesh.position.y-=0.002*this.mesh.position.z*this.mesh.position.z;
+      this.mesh.position.y-=0.002*125;
+      this.mesh.position.z-=0.5;
+      this.mesh.rotation.x-=0.02;
+      this.mesh.rotation.z+=0.1;
     }
   }
 

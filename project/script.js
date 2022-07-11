@@ -115,6 +115,27 @@ plane.scale.set(0.5,0.5,0.5);
 
 var enemies=[];
 var enemy;
+var enemies_number=2;
+var enemies_positions=[];
+
+//enemies positions
+var p1=new MODELS.Position(40,0,40);
+var p2=new MODELS.Position(20,0,40);
+var p3=new MODELS.Position(-20,0,40);
+var p4=new MODELS.Position(-40,0,40);
+var p5=new MODELS.Position(40,0,15);
+var p6=new MODELS.Position(20,0,15);
+var p7=new MODELS.Position(-20,0,15);
+var p8=new MODELS.Position(-40,0,15);
+enemies_positions.push(p1);
+enemies_positions.push(p2);
+enemies_positions.push(p3);
+enemies_positions.push(p4);
+enemies_positions.push(p5);
+enemies_positions.push(p6);
+enemies_positions.push(p7);
+enemies_positions.push(p8);
+
 
 
 var plane=new MODELS.Plane2();
@@ -130,13 +151,31 @@ var plane2=new MODELS.Plane();
 plane2.mesh.scale.set(0.5, 0.5, 0.5);
 scene.add(plane2.mesh);
 
+var plane3=new MODELS.Plane2();
+plane3.mesh.scale.set(0.5, 0.5, 0.5);
+scene.add(plane3.mesh);
 
-plane1.mesh.position.set(-20,0,30);
+
+
+
+
+
+
+plane1.mesh.position.set(-20,0,40);
 plane2.mesh.position.set(20,0,15);
+
+plane3.mesh.position.x=p1.x;
+plane3.mesh.position.y=p1.y;
+plane3.mesh.position.z=p1.z;
+
+
 
 
 plane1.mesh.rotation.y=Math.PI;
 plane2.mesh.rotation.y=Math.PI;
+plane3.mesh.rotation.y=Math.PI;
+
+
 
 
 //generatePlane();
@@ -144,6 +183,7 @@ plane2.mesh.rotation.y=Math.PI;
 
 enemies.push(plane1);
 enemies.push(plane2);
+enemies.push(plane3);
 
 function resizeRendererToDisplaySize(renderer) {
   const canvas = renderer.domElement;
@@ -180,7 +220,7 @@ var spacebarPressed=false;
 var R1bullets=[];
 var L1bullets=[];
 var flag=true;
-var enemies_number=2;
+
 
 
 function keyDownHandler(event) {
@@ -250,16 +290,28 @@ function generateBullet(){
   L1bullets.push(bulletl1);
 }
 
-
+var maxpointnumber=7;
 function generatePlane(){
   enemy=new MODELS.Plane2();
-  enemy.mesh.position.set(randomPosition(-40,40) , 0, randomPosition(0, 60));
+  //enemy.mesh.position.set(randomPosition(-40,40) , 0, randomPosition(0, 60));
+  var p = enemies_positions[ randomPosition(0, maxpointnumber)];
+  if(!p.taken){
+    enemy.mesh.position.x=p.x;
+    enemy.mesh.position.y=p.y;
+    enemy.mesh.position.z=p.z;
+    p.taken=true;
+  enemy.positionPoint=p;
+  enemies_positions.pop(p);
+  maxpointnumber-=1;
   enemy.mesh.scale.set(0.5, 0.5, 0.5)
   enemy.mesh.rotation.y=Math.PI;
   scene.add( enemy.mesh );
   enemies.push(enemy);
   console.log(enemies);
   enemies_number+=1;
+  console.log(enemy.positionPoint);
+  console.log(enemies_positions);
+  }
 }
 
 
@@ -294,6 +346,9 @@ function collision(bullet, plane){
   if(c){
     //console.log(c,"Collision");
     plane.hit=true;
+    enemies_positions.push(plane.positionPoint);
+    maxpointnumber+=1;
+    //plane.positionPoint.taken=false;
     if(plane.hit=true){
       enemies_number-=1;
     }
@@ -399,7 +454,7 @@ const angle=Math.PI/6;
     }
 
     
-    movePlane(plane1);
+    //movePlane(plane1);
     //movePlane(plane2);
     //plane.mesh.rotation.x=Math.PI/6;
 

@@ -1,4 +1,7 @@
 import * as THREE from 'three';
+import { Vector3 } from 'three';
+//import { randFloat } from 'three/src/math/MathUtils';
+import { randomPosition } from './models.js';
 
 
 //PLANE 1
@@ -474,8 +477,9 @@ this.hit=false;
       //this.mesh.position.y-=0.002*this.mesh.position.z*this.mesh.position.z;
       this.mesh.position.y-=0.002*125;
       this.mesh.position.z-=0.5;
-      this.mesh.rotation.x-=0.02;
-      this.mesh.rotation.z+=0.1;
+      this.mesh.rotation.x-=0.01;
+      this.mesh.rotation.z-=0.05;
+
     }
   }
 
@@ -494,6 +498,8 @@ this.bulletl1_position_z= 3.5;
 //this.bullet.mesh.position.set(-9,5, 3.5);
 //this.mesh.add( this.bullet.mesh );
 
+this.positionPoint=null;
+
 }
 
 
@@ -509,6 +515,18 @@ export var Bullet = function(){
   this.stop=function(){
     this.mesh.position.z+=0;
   }
+
+}
+
+export var Position = function(x, y, z){
+
+  this.taken=false;
+  this.x=x;
+  this.y=y;
+  this.z=z;
+
+  return new Vector3(x,y,z);
+
 
 }
 

@@ -63,21 +63,7 @@ var rightPressed=false;
 var leftPressed=false;
 var spacebarPressed=false;
 var flag=true;
-    document.addEventListener('keydown', keyDownHandler, false);
 
-    function keyDownHandler(event) {
-  
-      if(event.keyCode == 39) {
-          rightPressed = true;
-      }
-      else if(event.keyCode == 37) {
-          leftPressed = true;
-      }
-      if(event.keyCode==32){
-        spacebarPressed = true;
-
-      }
-    }
 
     document.getElementById("button2").onclick=function(){
       rightPressed=true;
@@ -87,8 +73,10 @@ var flag=true;
       leftPressed=true;
     };
 
+    
 
   function render(time) {
+    document.getElementById("playbutton").disabled=true;
     time *= 0.001;  // convert time to seconds
     if (resizeRendererToDisplaySize(renderer)) {
       const canvas = renderer.domElement;
@@ -117,14 +105,15 @@ var flag=true;
       if(group.position.x>=0){flag=true}
     }
 
-    if(spacebarPressed){
+
       if(group.position.x==-50){
         selectedplane=2;
+        document.getElementById("playbutton").disabled=false;
 
       }else if(group.position.x==0){
         selectedplane=1;
+        document.getElementById("playbutton").disabled=false;
 
-    }
   }
 
 

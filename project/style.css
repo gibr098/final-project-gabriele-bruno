@@ -82,6 +82,54 @@ html, body {
     font-family: "Copperplate", fantasy;
     transition-duration: 0.4s;
   }
+  #buttonPlay {
+    position: absolute;
+    background-color:transparent;
+    border: none;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    z-index: 10;
+    top: 30%;
+    left: 42%;
+    font-size: 50px;
+    font-family: "Copperplate", fantasy;
+    transition-duration: 0.4s;
+  }
+  #buttonSelect {
+    position: absolute;
+    background-color:transparent;
+    border: none;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    z-index: 10;
+    top: 50%;
+    left: 37%;
+    font-size: 50px;
+    font-family: "Copperplate", fantasy;
+    transition-duration: 0.4s;
+  }
+  #buttonCredits {
+    position: absolute;
+    background-color:transparent;
+    border: none;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    z-index: 10;
+    top: 70%;
+    left: 40%;
+    font-size: 50px;
+    font-family: "Copperplate", fantasy;
+    transition-duration: 0.4s;
+  }
 
   #button1:hover {
     background-color: #4CAF50; /* Green */
@@ -94,6 +142,21 @@ html, body {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
   }
   #playbutton:hover {
+    background-color:crimson;
+    color: white;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  }
+  #buttonSelect:hover {
+    background-color:crimson;
+    color: white;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  }
+  #buttonCredits:hover {
+    background-color:crimson;
+    color: white;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  }
+  #buttonPlay:hover {
     background-color:crimson;
     color: white;
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);

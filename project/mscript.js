@@ -1,12 +1,12 @@
 import * as THREE from 'three';
 import { Vector3 } from 'three';
 //import { randFloat } from 'three/src/math/MathUtils';
-import { randomPosition } from './models.js';
+import { randomPosition } from './functions.js';
 
 
 //PLANE 1
 export var Plane=function(){
-  this.mesh= new THREE.Object3D();
+  this.mesh = new THREE.Object3D();
 
   //cilinder for the body
   const bodyGeometry = new THREE.CylinderGeometry(3, 1.5 , 20, 9, 25);
@@ -263,6 +263,25 @@ export var Plane=function(){
     }
   }
 
+  this.movePlanePattern1=function(vel){
+    this.mesh.position.z-=vel;
+  }
+
+  var flag=true;
+  this.ll=randomPosition(-90,90);
+ 
+  this.movePlanePattern2=function(velz, velx){
+    this.mesh.position.z-=velz;
+    if(this.mesh.position.x < this.ll && flag==true){
+      this.mesh.position.x+=velx;
+
+      if( this.mesh.position.x >= this.ll){ flag=false}
+    }else if(this.mesh.position.x > this.ll-30 && flag==false){
+      this.mesh.position.x-=velx;
+      if( this.mesh.position.x <= this.ll-30){ flag=true}
+    }
+  }
+
 }
 
 
@@ -482,6 +501,32 @@ this.hit=false;
 
     }
   }
+  this.movePlanePattern1=function(vel){
+    this.mesh.position.z-=vel;
+  }
+
+  this.rotate=function(){
+    if(this.mesh.rotation.z<2*Math.PI){
+      this.mesh.rotation.z+=0.1;
+    }
+  }
+
+  var flag=true;
+  this.ll=randomPosition(-90,90);
+ 
+  this.movePlanePattern2=function(velz, velx){
+    this.mesh.position.z-=velz;
+    if(this.mesh.position.x < this.ll && flag==true){
+      this.mesh.position.x+=velx;
+
+      if( this.mesh.position.x >= this.ll){ flag=false}
+    }else if(this.mesh.position.x > this.ll-30 && flag==false){
+      this.mesh.position.x-=velx;
+      if( this.mesh.position.x <= this.ll-30){ flag=true}
+    }
+  }
+
+
 
 //Bullets
 
@@ -529,5 +574,27 @@ export var Position = function(x, y, z){
 
 
 }
+
+/*
+export var Pause= function(){
+  const loader = new THREE.FontLoader();
+
+loader.load('https://threejsfundamentals.org/threejs/examples/jsm/loaders/FontLoader.js', (font) => {
+  const text = 'PAUSE';  // ui: text
+  const material = new THREE.MeshPhongMaterial( {color: 0xD4AF37} );
+  const geometry = new THREE.TextGeometry(text, {
+    font: font,
+    size: 3,  // ui: size
+    height: 0.2,  // ui: height
+    curveSegments: 12,  // ui: curveSegments
+    bevelEnabled: true,  // ui: bevelEnabled
+    bevelThickness: 0.15,  // ui: bevelThickness
+    bevelSize: 0.3,  // ui: bevelSize
+    bevelSegments: 5,  // ui: bevelSegments
+  });
+
+  this.mesh= new THREE.Mesh( geometry, material );
+});
+}*/
 
 

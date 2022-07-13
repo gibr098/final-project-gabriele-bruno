@@ -1,6 +1,10 @@
 import * as THREE from 'three';
 import { TrackballControls } from 'https://threejsfundamentals.org/threejs/resources/threejs/r127/examples/jsm/controls/TrackballControls.js'
 import * as MODELS from './mscript.js'
+import {resizeRendererToDisplaySize} from './functions.js'
+import {makeElementObject} from './functions.js'
+
+export var selectedplane;
 function main() {
   const canvas = document.querySelector('#c');
   const renderer = new THREE.WebGLRenderer({canvas});
@@ -34,14 +38,124 @@ controls.dynamicDampingFactor = 0.3;
   scene.background = new THREE.Color(0x92FFF8);
 
 
-  const plane = new THREE.Object3D();
-  const plane2 = new THREE.Object3D();
-  plane.position.set(0,0,0);
-  scene.add(plane);
-  plane2.position.set(50,0,0);
-  scene.add(plane2);
+  var plane1 = new MODELS.Plane();
+  var plane2 = new MODELS.Plane2();
+  plane1.mesh.position.set(0,0,0);
+  //scene.add(plane1.mesh);
+  plane2.mesh.position.set(50,0,0);
+  //scene.add(plane2.mesh);
 
-  const PLANE=plane.clone();
+  const group=new THREE.Group();
+  group.add(plane1.mesh);
+  group.add(plane2.mesh);
+  scene.add(group);
+
+  
+  
+    const color = 0xFFFFFF;
+    const intensity = 1;
+    const light = new THREE.DirectionalLight(color, intensity);
+    light.position.set(5, 5, 5);
+    scene.add(light);
+
+ 
+var rightPressed=false;
+var leftPressed=false;
+var spacebarPressed=false;
+var flag=true;
+    document.addEventListener('keydown', keyDownHandler, false);
+
+    function keyDownHandler(event) {
+  
+      if(event.keyCode == 39) {
+          rightPressed = true;
+      }
+      else if(event.keyCode == 37) {
+          leftPressed = true;
+      }
+      if(event.keyCode==32){
+        spacebarPressed = true;
+
+      }
+    }
+
+
+  function render(time) {
+    time *= 0.001;  // convert time to seconds
+    if (resizeRendererToDisplaySize(renderer)) {
+      const canvas = renderer.domElement;
+      camera.aspect = canvas.clientWidth / canvas.clientHeight;
+      camera.updateProjectionMatrix();
+    }
+
+    //plane.mesh.rotation.y+=0.02;
+    plane1.propeller.rotation.z+=0.05;
+    //plane1.mesh.rotation.y+=0.02;
+    //plane2.mesh.rotation.y+=0.02;
+
+    if(rightPressed && flag) {
+      if(group.position.x>-50){
+        plane1.mesh.rotation.y=0;
+        group.position.x-=0.5;
+      }
+      if(group.position.x<=-50){flag=false}
+
+     }
+     else if(leftPressed && !flag) {
+      if(group.position.x<0){
+        plane2.mesh.rotation.y=0;
+        group.position.x+=0.5;
+      }
+      if(group.position.x>=0){flag=true}
+    }
+
+    if(spacebarPressed){
+      if(group.position.x==-50){
+        selectedplane=2;
+
+      }else if(group.position.x==0){
+        selectedplane=1;
+
+    }
+  }
+
+
+    if(group.position.x==-50){
+      plane2.mesh.rotation.y+=0.02;
+      leftPressed=false;
+    }
+    if(group.position.x==0){
+      plane1.mesh.rotation.y+=0.02;
+      rightPressed=false;
+    }
+    
+ console.log(selectedplane);
+    
+
+    
+    
+
+    //plane2.mesh.rotation.y+=0.02;
+    plane2.propeller.rotation.z+=0.05;
+
+    controls.update();
+
+
+    renderer.render(scene, camera);
+
+    requestAnimationFrame(render);
+  }
+  requestAnimationFrame(render);
+
+ 
+
+}
+main();
+
+
+
+
+  /*
 //PLANE 1
 //cilinder for the body
 const bodyGeometry = new THREE.CylinderGeometry(3, 1.5 , 20, 9, 25);
@@ -439,52 +553,6 @@ bodyMeshp2.add( gunL4 );
     })
   }
 
-  function render(time) {
-    time *= 0.001;  // convert time to seconds
-    if (resizeRendererToDisplaySize(renderer)) {
-      const canvas = renderer.domElement;
-      camera.aspect = canvas.clientWidth / canvas.clientHeight;
-      camera.updateProjectionMatrix();
-    }
-
-    propeller.rotation.z=time;
-    propellerp2A.rotation.z=time;
-    plane.rotation.y=time;
-    plane2.rotation.y=time;
-
-
-    controls.update();
-
-
-    renderer.render(scene, camera);
-
-    requestAnimationFrame(render);
-  }
-  requestAnimationFrame(render);
-}
-main();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 export function createPlane1(){
   const plane = new THREE.Object3D();
@@ -730,21 +798,6 @@ export function createPlane1(){
   return plane;
   
   }
+*/
 
 
-
-
-  export function resizeRendererToDisplaySize(renderer) {
-    const canvas = renderer.domElement;
-    const width = canvas.clientWidth;
-    const height = canvas.clientHeight;
-    const needResize = canvas.width !== width || canvas.height !== height;
-    if (needResize) {
-      renderer.setSize(width, height, false);
-    }
-    return needResize;
-  }
-
-  export function randomPosition(min, max) { // min and max included 
-    return Math.floor(Math.random() * (max - min + 1) + min)
-  }

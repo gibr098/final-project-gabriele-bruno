@@ -35,16 +35,66 @@ html, body {
     font-family: "Copperplate", fantasy;
 }
 
-#button {
+#button1 {
     position: absolute;
-    background-color: #4CAF50; /* Green */
+    background-color:transparent;
     border: none;
-    color: white;
+    color: black;
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
     display: block;
     z-index: 100;
-    top: 10px;
-    font-size: 16px;
+    top: 40%;
+    right:90%;
+    font-size: 100px;
+    transition-duration: 0.4s;
+  }
+
+#button2 {
+    position: absolute;
+    background-color:transparent;
+    border: none;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    z-index: 10;
+    top: 40%;
+    left: 90%;
+    font-size: 100px;
+    transition-duration: 0.4s;
+  }
+  #playbutton {
+    position: absolute;
+    background-color:transparent;
+    border: none;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    z-index: 10;
+    top: 20px;
+    left: 45%;
+    font-size: 50px;
+    font-family: "Copperplate", fantasy;
+    transition-duration: 0.4s;
+  }
+
+  #button1:hover {
+    background-color: #4CAF50; /* Green */
+    color: white;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  }
+  #button2:hover {
+    background-color: #4CAF50; /* Green */
+    color: white;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  }
+  #playbutton:hover {
+    background-color:crimson;
+    color: white;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
   }

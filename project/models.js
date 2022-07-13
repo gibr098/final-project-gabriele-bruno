@@ -79,6 +79,14 @@ var flag=true;
       }
     }
 
+    document.getElementById("button2").onclick=function(){
+      rightPressed=true;
+
+    };
+    document.getElementById("button1").onclick= function(){
+      leftPressed=true;
+    };
+
 
   function render(time) {
     time *= 0.001;  // convert time to seconds

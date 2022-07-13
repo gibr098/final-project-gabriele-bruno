@@ -252,6 +252,26 @@ export var Plane=function(){
   this.bulletl1_position_z= 3.5;
 
   this.hit=false;
+
+  this.R1bullets=[];
+  this.L1bullets=[];
+
+  this.R1bullets=[];
+  this.L1bullets=[];
+
+var bullet_velocity=2;
+
+
+this.shoot=function(){
+this.R1bullets.forEach(b => {
+  b.mesh.position.z-=bullet_velocity;
+  });
+
+
+this.L1bullets.forEach(b => {
+  b.mesh.position.z-=bullet_velocity;
+});
+}
   
   this.destroy=function(){
     if(this.hit){
@@ -545,6 +565,22 @@ this.bulletl1_position_z= 3.5;
 
 this.positionPoint=null;
 
+this.R1bullets=[];
+this.L1bullets=[];
+
+var bullet_velocity=2;
+
+
+this.shoot=function(){
+this.R1bullets.forEach(b => {
+  b.mesh.position.z-=bullet_velocity;
+  });
+
+
+this.L1bullets.forEach(b => {
+  b.mesh.position.z-=bullet_velocity;
+});
+}
 }
 
 

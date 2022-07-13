@@ -77,18 +77,18 @@ scene.add(plane.mesh);
 
 var plane1=new MODELS.Plane2();
 plane1.mesh.scale.set(0.5, 0.5, 0.5);
-//scene.add(plane1.mesh);
+scene.add(plane1.mesh);
 plane1.mesh.position.set(-25,0,40);
 
 var plane2=new MODELS.Plane2();
 plane2.mesh.scale.set(0.5, 0.5, 0.5);
 //scene.add(plane2.mesh);
-plane2.mesh.position.set(25,0,40);
+//plane2.mesh.position.set(25,0,40);
 
 var plane3=new MODELS.Plane2();
 plane3.mesh.scale.set(0.5, 0.5, 0.5);
 //scene.add(plane3.mesh);
-plane3.mesh.position.set(0,0,15);
+//plane3.mesh.position.set(0,0,15);
 
 
 
@@ -118,8 +118,8 @@ screen game area (x,z)
 
 
 enemies.push(plane1);
-enemies.push(plane2);
-enemies.push(plane3);
+//enemies.push(plane2);
+//enemies.push(plane3);
 
 function resizeRendererToDisplaySize(renderer) {
   const canvas = renderer.domElement;
@@ -237,7 +237,24 @@ function generateBullet(){
   L1bullets.push(bulletl1);
 }
 
-var maxpointnumber=7;
+var bulletr1E, bulletl1E;
+function generateEnemyBullet(enemy){
+  bulletr1E=new MODELS.Bullet();
+  bulletr1E.mesh.position.x=enemy.mesh.position.x - enemy.bulletr1_position_x
+  bulletr1E.mesh.position.y=enemy.mesh.position.y - enemy.bulletr1_position_y
+  bulletr1E.mesh.position.z=enemy.mesh.position.z - enemy.bulletr1_position_z
+  scene.add( bulletr1E.mesh );
+  enemy.R1bullets.push(bulletr1E);
+
+  bulletl1E=new MODELS.Bullet();
+  bulletl1E.mesh.position.x=enemy.mesh.position.x - enemy.bulletl1_position_x;
+  bulletl1E.mesh.position.y=enemy.mesh.position.y - enemy.bulletl1_position_y;
+  bulletl1E.mesh.position.z=enemy.mesh.position.z - enemy.bulletl1_position_z;
+  scene.add( bulletl1E.mesh );
+  enemy.L1bullets.push(bulletl1E);
+}
+
+
 function generatePlane(){
   if(randomPosition(0,1)){
     enemy=new MODELS.Plane2();
@@ -292,7 +309,7 @@ function collision(bullet, plane){
   }
 }
 //_____________________________________________________________
-
+/*
 
 var t = 3500; // Timer
 
@@ -321,23 +338,23 @@ var t = 3500; // Timer
           }
         }
 
-
-//spawn an enemy plane each second
-/*
-var seconds=3000;
-setInterval(function() {
-  generatePlane();
-  seconds-=100;
-  console.log(seconds);
-}, seconds);
 */
 
+//spawn an enemy plane each second
+
+
+//setInterval(function() {generatePlane();}, 3000);
 
 
 
 
 //_______________________________________________________________
 
+
+enemies.forEach(p => {
+  setInterval(function() {generateEnemyBullet(p)}, 2000);
+
+});
 
 const angle=Math.PI/6;
 
@@ -429,14 +446,13 @@ const angle=Math.PI/6;
     
 
     enemies.forEach(p => {
-      //p.propeller.rotation.z=20*time;
       //p.movePlanePattern1(0.5);
-      p.movePlanePattern2(0.5,0.3);
+      //p.movePlanePattern2(0.5,0.3);
+      p.shoot();
       p.destroy();
       if(p.mesh.position.y<=-100 || p.mesh.position.z<-80){
         scene.remove(p.mesh);
       }
-      //movePlane(p);
     });
 
     
@@ -444,6 +460,7 @@ const angle=Math.PI/6;
     enemies.forEach(p=>{
       p.propeller.rotation.z+=0.5;
     })
+    
     plane.propeller.rotation.z+=0.5;
     renderer.render(scene, camera);
 

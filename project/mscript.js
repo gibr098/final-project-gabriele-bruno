@@ -1,3 +1,4 @@
+//import * as THREE from 'three';
 import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r127/build/three.module.js'
 import { Vector3 } from 'https://threejsfundamentals.org/threejs/resources/threejs/r127/build/three.module.js';
 //import { randFloat } from 'three/src/math/MathUtils';
@@ -353,14 +354,15 @@ this.propeller.add( propellerp2 );
 this.mesh.add( this.propeller );
 
 //wings
-const wings = new THREE.Shape()
-					wings.moveTo( 20, 0 )
-					wings.lineTo( 0, 0 )
-					wings.lineTo( 0, 3 )
+const wings = new THREE.Shape();
+					wings.moveTo( 20, 0 );
+					wings.lineTo( 0, 0 );
+					wings.lineTo( 0, 3 );
 					wings.lineTo( 16, 6 );
           wings.lineTo( 24, 6 );
           wings.lineTo( 40, 3 );
           wings.lineTo( 40, 0 );
+
 const extrudeSettingsW = {
   depth: 0.5,
   bevelEnabled: true,
@@ -375,6 +377,7 @@ const wgeometry = new THREE.ExtrudeGeometry( wings, extrudeSettingsW );
 const wmaterial = new THREE.MeshPhongMaterial( {color: 0xff0000} );
 const wmesh = new THREE.Mesh( wgeometry, wmaterial );
 
+wmesh.scale.set(1,1,0.05);
 wmesh.position.set(-20, 2, 1.5);
 bodyMeshp2.add(wmesh);
 

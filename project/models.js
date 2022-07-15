@@ -4,7 +4,7 @@ import * as MODELS from './mscript.js'
 import {resizeRendererToDisplaySize} from './functions.js'
 import {makeElementObject} from './functions.js'
 
-export var selectedplane;
+
 function main() {
   const canvas = document.querySelector('#c');
   const renderer = new THREE.WebGLRenderer({canvas});
@@ -63,6 +63,7 @@ var rightPressed=false;
 var leftPressed=false;
 var spacebarPressed=false;
 var flag=true;
+var selectedplane;
 
 
     document.getElementById("button2").onclick=function(){
@@ -72,6 +73,8 @@ var flag=true;
     document.getElementById("button1").onclick= function(){
       leftPressed=true;
     };
+
+    
 
     
 
@@ -126,7 +129,13 @@ var flag=true;
       rightPressed=false;
     }
     
- console.log(selectedplane);
+    //console.log(selectedplane);
+    var s=selectedplane;
+  
+  localStorage.setItem("plane", s);
+  
+    
+
     
 
     
@@ -143,11 +152,21 @@ var flag=true;
     requestAnimationFrame(render);
   }
   requestAnimationFrame(render);
+  
 
  
 
 }
 main();
+
+
+
+
+/*
+export function planeselection(){
+  if(selectedplane==1){return 1}
+  else if (selectedplane==2){return 2}
+}*/
 
 
 

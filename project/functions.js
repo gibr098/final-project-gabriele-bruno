@@ -56,7 +56,11 @@ export function Pause() {
   var x = document.getElementById("pause");
   if (x.style.display == "block") {
     x.style.display = "none";
+    document.getElementById("buttonReturn").style.display="none";
+    document.getElementById("ResumeButton").style.display="none";
   }else{
     x.style.display = "block";
+    document.getElementById("buttonReturn").style.display="block";
+    document.getElementById("ResumeButton").style.display="block";
   }
 }

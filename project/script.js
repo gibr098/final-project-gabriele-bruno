@@ -10,6 +10,8 @@ import { randomPosition, Pause } from './functions.js';
 
 
 
+
+
 //import * as CONTROLS from './inputHandler.js'
 const sizes = {width: window.innerWidth, height: window.innerHeight}
 var enemyId=0;
@@ -202,8 +204,9 @@ var enemy;
 
 
 
-var selectedplane=1;
+//var selectedplane=planeselection();
 var plane;
+var selectedplane=localStorage.getItem("plane");
 
 if(selectedplane==1){
   plane=new MODELS.Plane();
@@ -295,6 +298,7 @@ var rightPressed = false;
 var leftPressed = false;
 var upPressed = false;
 var downPressed = false;
+var pPressed = false;
 var spacebarPressed=false;
 var R1bullets=[];
 var L1bullets=[];
@@ -303,8 +307,7 @@ var flag=true;
 
 
 function keyDownHandler(event) {
-  
-  
+
   if(event.keyCode == 39) {
       rightPressed = true;
   }
@@ -324,6 +327,16 @@ function keyDownHandler(event) {
   }
 
   //pause game with key p
+  if(event.keyCode==80){
+    if(!pPressed){pPressed = true}
+
+    else{pPressed = false}
+    
+
+    Pause();
+
+
+  }
  
 
   //spawn plane key s
@@ -334,7 +347,11 @@ function keyDownHandler(event) {
 }
 
 
-
+document.getElementById("ResumeButton").onclick=function(){
+  if(pPressed){pPressed=false;}
+  Pause();
+  
+}
 
 function keyUpHandler(event) {
   if(event.keyCode == 39) {
@@ -495,9 +512,51 @@ function collision(bullet, plane){
     //console.log(c,"NO collision");
   }
 }
+//_____________________________________________________________
+//gradually spawn enemies
+/*
 
+var t = 3500; // Timer
+
+        var interval;
+
+        f1();
+
+        function changeTimer(){
+            if(t<=500){
+              t-=0;
+            }else if(t<=800){
+              t-=5;
+            }else{
+              t-=100;
+            }
+        }
+
+        function f1() {
+          if(!pPressed){
+            clearInterval(interval);
+            generatePlane();
+            generatePlane();
+            console.log(t);
+            changeTimer();
+            interval = setInterval(f1, t);
+          }
+        }
+
+
+
+*/
 //spawn an enemy plane each second
-//setInterval(function() {generatePlane()}, 1000);
+//setInterval(function() {generatePlane();}, 3000);
+
+
+
+//_______________________________________________________________
+
+
+
+
+
 window.addEventListener('resize', onWindowResize, false)
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight
@@ -520,6 +579,8 @@ onWindowResize()
 const angle=Math.PI/6;
 
 function render() {
+  if(!pPressed){
+  
   //time *= 0.001;  // convert time to seconds
  /* if (resizeRendererToDisplaySize(renderer)) {
     const canvas = renderer.domElement;
@@ -630,23 +691,42 @@ function render() {
   //renderer.render(scene, camera);
 
   //requestAnimationFrame(render);
+   }
 }
 
 function animate(){
+  
   
 
     requestAnimationFrame(animate)
     renderer.render(scene,camera)
     const time = performance.now() * 0.001;
     plane.propeller.rotation.z=20*time;
-
+    enemies.forEach(p=>{
+      p.propeller.rotation.z+=0.5;
+    })
+    if(!pPressed){
     enemies.forEach(p => {
-      p.propeller.rotation.z=20*time;
+      //p.propeller.rotation.z=20*time;
+      p.movePlanePattern2(0.5,0.3);
       p.shoot();
       p.destroy();
-      if(p.mesh.position.y<=-100){
+      p.R1bullets.forEach(br1=>{
+        if(br1.mesh.position.z<-80){
+          scene.remove(br1.mesh);
+        }
+      });
+
+      p.L1bullets.forEach(bl1=>{
+        if(bl1.mesh.position.z<-80){
+          scene.remove(bl1.mesh);
+        }
+      });
+
+      if(p.mesh.position.y<=-100 || p.mesh.position.z<-80){
         scene.remove(p.mesh);
       } 
+      
     });
     
     ud+=0.1;
@@ -671,12 +751,15 @@ function animate(){
       else{
         mill.position.z= 120;
       }
+    
+    render();
+    }
   
-    render()
     
    
     
 }
+
 
 //main()
 animate()

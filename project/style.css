@@ -25,14 +25,25 @@ html, body {
 
 #pause {
 	position: absolute;
-    font-size: 100px;
+  font-size: 100px;
 	top: 200px;
 	width: 100%;
 	text-align: center;
 	z-index: 100;
 	display:none;
-    color:crimson;
-    font-family: "Copperplate", fantasy;
+  color:crimson;
+  font-family: "Copperplate", fantasy;
+}
+#press {
+	position: absolute;
+  font-size: 15px;
+	top: 20px;
+	width: 100%;
+  text-align: right;
+	z-index: 100;
+	display:block;
+  color:whitesmoke;
+  font-family: "Copperplate", fantasy;
 }
 
 #button1 {
@@ -130,6 +141,38 @@ html, body {
     font-family: "Copperplate", fantasy;
     transition-duration: 0.4s;
   }
+  #buttonReturn {
+    position: absolute;
+    background-color:crimson;
+    border: none;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: none;
+    z-index: 10;
+    top: 55%;
+    left: 42%;
+    font-size: 20px;
+    font-family: "Copperplate", fantasy;
+    transition-duration: 0.4s;
+  }
+  #ResumeButton {
+    position: absolute;
+    background-color: crimson;
+    border: none;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: none;
+    z-index: 10;
+    top: 45%;
+    left: 44.5%;
+    font-size: 20px;
+    font-family: "Copperplate", fantasy;
+    transition-duration: 0.4s;
+  }
 
   #button1:hover {
     background-color: #4CAF50; /* Green */
@@ -159,5 +202,17 @@ html, body {
   #buttonPlay:hover {
     background-color:crimson;
     color: white;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  }
+
+  #buttonReturn:hover {
+    background-color:transparent;
+    color: whitesmoke;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  }
+
+  #ResumeButton:hover {
+    background-color:transparent;
+    color: whitesmoke;
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
   }

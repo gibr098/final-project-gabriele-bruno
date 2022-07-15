@@ -162,6 +162,7 @@ var pPressed=false;
 
 function keyDownHandler(event) {
   
+  
   if(event.keyCode == 39) {
       rightPressed = true;
   }

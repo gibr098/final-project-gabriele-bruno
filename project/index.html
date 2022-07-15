@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -14,24 +15,21 @@
             "three": "https://threejs.org/build/three.module.js"
         }
     }</script><!-- Remove this when import maps will be widely supported -->
-    <script src="script.js" type="module" lang="javascript"></script>
-    <script src="functions.js" type="module" lang="javascript"></script>
-
+    <script src="homepage.js" type="module" lang="javascript"></script>
 	</head>
 	<body>
         <canvas id="c"></canvas>
-        <form action="./homepage.html">
-            <input id="buttonReturn" type="submit" value="RETURN TO MENU" />
+        <form action="./play.html">
+            <input id="buttonPlay" type="submit" value="PLAY" />
         </form>
-        <button id="ResumeButton">RESUME</button>
-        <div id="pause">PAUSE</div>
-        <div id="gameover">GAME OVER</div>
-        <div id="press">Press P to Pause/Resume</div>
+        <form action="./models.html">
+            <input id="buttonSelect" type="submit" value="SELECT PLANE" />
+        </form>
+        <form action="../README.md">
+            <input id="buttonCredits" type="submit" value="CREDITS" />
+        </form>
+
 	</body>
 </html>
 
 
-<!--<script  type="text/javascript" src="../build/three.js"></script>-->
-<!--<script  type="module" src="../build/three.module.js"></script>-->
-<!--<script  type="module" src="https://threejs.org/build/three.module.js"></script>-->
-<!--<script  type="text/javascript" src="../build/three.min.js"></script>-->

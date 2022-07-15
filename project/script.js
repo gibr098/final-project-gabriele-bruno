@@ -570,7 +570,7 @@ function dropHearts(p,h1,h2,h3){
     h3.fall();h2.fall();h1.fall();
     document.getElementById("gameover").style.display="block";
     setTimeout(function(){
-      window.location.href = './homepage.html';
+      window.location.href = './index.html';
    }, 4000);
 
   }

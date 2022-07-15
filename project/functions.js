@@ -1,4 +1,4 @@
-import * as THREE from 'three';
+import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r127/build/three.module.js'
 
   export function resizeRendererToDisplaySize(renderer) {
     const canvas = renderer.domElement;

@@ -34,6 +34,18 @@ html, body {
   color:crimson;
   font-family: "Copperplate", fantasy;
 }
+
+#gameover {
+	position: absolute;
+  font-size: 100px;
+	top: 200px;
+	width: 100%;
+	text-align: center;
+	z-index: 100;
+	display:none;
+  color:crimson;
+  font-family: "Copperplate", fantasy;
+}
 #press {
 	position: absolute;
   font-size: 15px;

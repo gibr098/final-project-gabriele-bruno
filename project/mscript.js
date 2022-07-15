@@ -260,7 +260,7 @@ export var Plane=function(){
   this.R1bullets=[];
   this.L1bullets=[];
 
-var bullet_velocity=2;
+var bullet_velocity=1.2;
 
 
 this.shoot=function(){
@@ -275,7 +275,7 @@ this.L1bullets.forEach(b => {
 }
   
   this.destroy=function(){
-    if(this.hit){
+    if(this.hit || this.playerLives<=0){
       //this.mesh.position.y-=0.002*this.mesh.position.z*this.mesh.position.z;
       this.mesh.position.y-=0.002*125;
       this.mesh.position.z-=0.5;
@@ -302,6 +302,19 @@ this.L1bullets.forEach(b => {
       if( this.mesh.position.x <= this.ll-30){ flag=true}
     }
   }
+
+  this.playerHit=false;
+  this.playerLives;
+  this.removelife=function(){
+    if(this.playerHit){
+    this.playerLives-=1;
+    this.playerHit=false;
+  }
+}
+
+
+
+ 
 
 }
 
@@ -511,9 +524,18 @@ bodyMeshp2.add( gunR4 );
 bodyMeshp2.add( gunL4 );
 
 this.hit=false;
+
+this.playerHit=false;
+  this.playerLives;
+  this.removelife=function(){
+    if(this.playerHit){
+    this.playerLives-=1;
+    this.playerHit=false;
+    }
+  }
   
   this.destroy=function(){
-    if(this.hit){
+    if(this.hit || this.playerLives<=0){
       //this.mesh.position.y-=1;
       //this.mesh.rotation.z+=0.1;
       //this.mesh.position.y-=0.002*this.mesh.position.z*this.mesh.position.z;
@@ -571,7 +593,7 @@ this.positionPoint=null;
 this.R1bullets=[];
 this.L1bullets=[];
 
-var bullet_velocity=2;
+var bullet_velocity=1.7;
 
 
 this.shoot=function(){
@@ -602,39 +624,42 @@ export var Bullet = function(){
 
 }
 
-export var Position = function(x, y, z){
-
-  this.taken=false;
-  this.x=x;
-  this.y=y;
-  this.z=z;
-
-  return new Vector3(x,y,z);
 
 
+
+export var Heart= function(){
+const shape = new THREE.Shape();
+const x = -2.5;
+const y = -5;
+shape.moveTo(x + 2.5, y + 2.5);
+shape.bezierCurveTo(x + 2.5, y + 2.5, x + 2, y, x, y);
+shape.bezierCurveTo(x - 3, y, x - 3, y + 3.5, x - 3, y + 3.5);
+shape.bezierCurveTo(x - 3, y + 5.5, x - 1.5, y + 7.7, x + 2.5, y + 9.5);
+shape.bezierCurveTo(x + 6, y + 7.7, x + 8, y + 4.5, x + 8, y + 3.5);
+shape.bezierCurveTo(x + 8, y + 3.5, x + 8, y, x + 5, y);
+shape.bezierCurveTo(x + 3.5, y, x + 2.5, y + 2.5, x + 2.5, y + 2.5);
+
+const extrudeSettings = {
+  steps: 2,  // ui: steps
+  depth: 2,  // ui: depth
+  bevelEnabled: true,  // ui: bevelEnabled
+  bevelThickness: 1,  // ui: bevelThickness
+  bevelSize: 1,  // ui: bevelSize
+  bevelSegments: 2,  // ui: bevelSegments
+};
+
+const geometry = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+const material = new THREE.MeshPhongMaterial( {color: 0xff0000} );
+
+this.mesh= new THREE.Mesh(geometry, material)
+this.mesh.rotation.x=-Math.PI/2;
+
+this.fall=function(){
+    this.mesh.position.y-=0.002*125;
+    this.mesh.position.z-=0.5;
+    this.mesh.rotation.x-=0.02;
+    this.mesh.rotation.z+=0.1;
+  }
 }
-
-
-/*
-export var Pause= function(){
-  const loader = new THREE.FontLoader();
-
-loader.load('https://threejsfundamentals.org/threejs/examples/jsm/loaders/FontLoader.js', (font) => {
-  const text = 'PAUSE';  // ui: text
-  const material = new THREE.MeshPhongMaterial( {color: 0xD4AF37} );
-  const geometry = new THREE.TextGeometry(text, {
-    font: font,
-    size: 3,  // ui: size
-    height: 0.2,  // ui: height
-    curveSegments: 12,  // ui: curveSegments
-    bevelEnabled: true,  // ui: bevelEnabled
-    bevelThickness: 0.15,  // ui: bevelThickness
-    bevelSize: 0.3,  // ui: bevelSize
-    bevelSegments: 5,  // ui: bevelSegments
-  });
-
-  this.mesh= new THREE.Mesh( geometry, material );
-});
-}*/
 
 

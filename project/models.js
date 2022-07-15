@@ -38,7 +38,7 @@ controls.dynamicDampingFactor = 0.3;
   scene.background = new THREE.Color(0x92FFF8);
 
 
-  var plane1 = new MODELS.Plane3();
+  var plane1 = new MODELS.Plane();
   var plane2 = new MODELS.Plane2();
 
 
@@ -91,7 +91,7 @@ var selectedplane;
 
     //plane.mesh.rotation.y+=0.02;
 
-    //plane1.propeller.rotation.z+=0.05; // <-------------------------
+    plane1.propeller.rotation.z+=0.05; 
 
 
 
@@ -132,7 +132,7 @@ var selectedplane;
       leftPressed=false;
     }
     if(group.position.x==0){
-      //plane1.mesh.rotation.y+=0.02;  <------------------------------------
+      plane1.mesh.rotation.y+=0.02;
       rightPressed=false;
     }
     

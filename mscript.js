@@ -1,4 +1,3 @@
-//import * as THREE from 'three';
 import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r127/build/three.module.js'
 import { Vector3 } from 'https://threejsfundamentals.org/threejs/resources/threejs/r127/build/three.module.js';
 //import { randFloat } from 'three/src/math/MathUtils';
@@ -11,8 +10,11 @@ export var Plane=function(){
 
   //cilinder for the body
   const bodyGeometry = new THREE.CylinderGeometry(3, 1.5 , 20, 9, 25);
-  const bodyMaterial = new THREE.MeshPhongMaterial({color: 0x6688AA});
-  const bodyMesh = new THREE.Mesh(bodyGeometry, bodyMaterial);
+  //const bodyMaterial = new THREE.MeshPhongMaterial({color: 0x6688AA});
+  var mmaterial = new THREE.MeshPhongMaterial()
+  const texture = new THREE.TextureLoader().load('assets/metal.jpg')
+  mmaterial.map = texture
+  const bodyMesh = new THREE.Mesh(bodyGeometry, mmaterial);
 
   bodyMesh.position.y = 1.4;
   bodyMesh.rotation.x=Math.PI/2
@@ -53,10 +55,19 @@ export var Plane=function(){
 
 
   //wings
+  var wwmaterial = new THREE.MeshPhongMaterial()
+
+  var wtexture = new THREE.TextureLoader().load('assets/brick.jpg')
+  wwmaterial.map = wtexture
+
+  const bumpTexture = new THREE.TextureLoader().load('assets/brickMap.jpg')
+  wwmaterial.bumpMap = bumpTexture
+  wwmaterial.bumpScale = 0.015
+
   const wingGeometry = new THREE.BoxGeometry( 0.7, 4, 25 );
   const wingMaterial = new THREE.MeshPhongMaterial( {color: 0xffa500} );
-  const wing1 = new THREE.Mesh( wingGeometry, wingMaterial );
-  const wing2 = new THREE.Mesh( wingGeometry, wingMaterial );
+  const wing1 = new THREE.Mesh( wingGeometry, wwmaterial );
+  const wing2 = new THREE.Mesh( wingGeometry, wwmaterial );
   wing1.rotation.y=Math.PI/2
   wing1.position.set(0 ,5.5, 1);
   wing2.rotation.y=Math.PI/2
@@ -321,17 +332,30 @@ this.L1bullets.forEach(b => {
 export var Plane2 = function(){
 this.mesh= new THREE.Object3D();
 const bodyGeometryp2 = new THREE.CylinderGeometry(3, 1 , 20, 9, 25);
-const bodyMaterialp2= new THREE.MeshPhongMaterial({color: 0x00ff00});
-const bodyMeshp2 = new THREE.Mesh(bodyGeometryp2, bodyMaterialp2);
+//const bodyMaterialp2= new THREE.MeshPhongMaterial({color: 0x00ff00});
+var mmaterial2 = new THREE.MeshPhongMaterial()
+const texture2 = new THREE.TextureLoader().load('assets/metal.jpg')
+mmaterial2.map = texture2
+const bodyMeshp2 = new THREE.Mesh(bodyGeometryp2, mmaterial2);
 
 bodyMeshp2.position.y = 1.4;
 bodyMeshp2.rotation.x=Math.PI/2
 bodyMeshp2.castShadow = true;
 this.mesh.add(bodyMeshp2);
 
+
+var cilmaterial = new THREE.MeshPhongMaterial()
+
+  var ctexture = new THREE.TextureLoader().load('assets/rust.jpg')
+  cilmaterial.map = ctexture
+
+  const cbumpTexture = new THREE.TextureLoader().load('assets/rustMap.jpg')
+  cilmaterial.bumpMap = cbumpTexture
+  cilmaterial.bumpScale = 0.015
+
 const tipGeometryp2 = new THREE.CylinderGeometry( 1.5, 3, 2, 9 );
-const tipMaterialp2 = new THREE.MeshPhongMaterial( {color: 0xff0000} );
-const tipCylinderp2 = new THREE.Mesh( tipGeometryp2, tipMaterialp2 );
+//const tipMaterialp2 = new THREE.MeshPhongMaterial( {color: 0xff0000} );
+const tipCylinderp2 = new THREE.Mesh( tipGeometryp2, cilmaterial );
 tipCylinderp2.position.set(0,11,0);
 bodyMeshp2.add( tipCylinderp2 );
 
@@ -354,15 +378,14 @@ this.propeller.add( propellerp2 );
 this.mesh.add( this.propeller );
 
 //wings
-const wings = new THREE.Shape();
-					wings.moveTo( 20, 0 );
-					wings.lineTo( 0, 0 );
-					wings.lineTo( 0, 3 );
+const wings = new THREE.Shape()
+					wings.moveTo( 20, 0 )
+					wings.lineTo( 0, 0 )
+					wings.lineTo( 0, 3 )
 					wings.lineTo( 16, 6 );
           wings.lineTo( 24, 6 );
           wings.lineTo( 40, 3 );
           wings.lineTo( 40, 0 );
-
 const extrudeSettingsW = {
   depth: 0.5,
   bevelEnabled: true,
@@ -373,11 +396,11 @@ const extrudeSettingsW = {
 	bevelSegments: 1
 }
 
+
 const wgeometry = new THREE.ExtrudeGeometry( wings, extrudeSettingsW );
 const wmaterial = new THREE.MeshPhongMaterial( {color: 0xff0000} );
 const wmesh = new THREE.Mesh( wgeometry, wmaterial );
 
-wmesh.scale.set(1,1,0.05);
 wmesh.position.set(-20, 2, 1.5);
 bodyMeshp2.add(wmesh);
 
@@ -426,9 +449,16 @@ bodyMeshp2.add(wheelp2);
 
 
 //spoilers
+var spmaterial = new THREE.MeshPhongMaterial()
+
+  var sptexture = new THREE.TextureLoader().load('assets/rust.jpg')
+  spmaterial.map = sptexture
+
+  const spbumpTexture = new THREE.TextureLoader().load('assets/rustMap.jpg')
+  spmaterial.bumpMap = spbumpTexture
 const sgeometry2 = new THREE.BoxGeometry( 11, 1.5, 0.5 );
-const smaterial2 = new THREE.MeshPhongMaterial( {color: 0x00ff00} );
-const spoilerp2 = new THREE.Mesh( sgeometry2, smaterial2 );
+//const smaterial2 = new THREE.MeshPhongMaterial( {color: 0x00ff00} );
+const spoilerp2 = new THREE.Mesh( sgeometry2, spmaterial );
 spoilerp2.position.set(0,-9,-0.5);
 bodyMeshp2.add( spoilerp2 );
 const spoiler = new THREE.Shape()

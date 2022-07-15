@@ -1,8 +1,8 @@
-import * as THREE from 'three';
-import { Vector3 } from 'three';
+import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r127/build/three.module.js'
+import { Vector3 } from 'https://threejsfundamentals.org/threejs/resources/threejs/r127/build/three.module.js';
 //import { randFloat } from 'three/src/math/MathUtils';
 import { randomPosition } from './functions.js';
-
+//import * as WATER from 'Water';
 
 //PLANE 1
 export var Plane=function(){
@@ -610,6 +610,7 @@ export var Position = function(x, y, z){
 
 
 }
+
 
 /*
 export var Pause= function(){

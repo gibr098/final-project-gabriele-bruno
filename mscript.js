@@ -329,9 +329,9 @@ this.destroyPlayer=function(){
     //this.mesh.rotation.z+=0.1;
     //this.mesh.position.y-=0.002*this.mesh.position.z*this.mesh.position.z;
     this.mesh.position.y-=0.008*125;
-    this.mesh.position.z+=0.5;
+    this.mesh.position.z-=0.5;
     this.mesh.rotation.x-=0.04;
-    this.mesh.rotation.z+=0.08;
+    this.mesh.rotation.z-=0.08;
 
   }
 }
@@ -583,9 +583,9 @@ this.playerHit=false;
       //this.mesh.rotation.z+=0.1;
       //this.mesh.position.y-=0.002*this.mesh.position.z*this.mesh.position.z;
       this.mesh.position.y-=0.005*125;
-      this.mesh.position.z+=0.5;
+      this.mesh.position.z-=0.5;
       this.mesh.rotation.x-=0.01;
-      this.mesh.rotation.z+=0.09;
+      this.mesh.rotation.z-=0.09;
 
     }
   }

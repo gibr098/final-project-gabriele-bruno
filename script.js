@@ -525,6 +525,7 @@ function render() {
       plane.mesh.rotation.x+=0.1;
     }
   }
+  }
 
   var bullet_velocity=2;
   if (spacebarPressed){
@@ -546,7 +547,7 @@ function render() {
   water.material.uniforms[ 'time' ].value += 0.5 / 60.0;
 
    }
-  }
+  
 }
 
 function animate(){

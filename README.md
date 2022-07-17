@@ -6,7 +6,7 @@ Play the game: https://sapienzainteractivegraphicscourse.github.io/final-project
 We reccomend to run the game on Mozilla Fireforx or Microsoft Edge
  
  
-Here there is a [GAMEPLAY DEMO](https://user-images.githubusercontent.com/101864268/179424988-567a490a-441b-4563-90d8-d27e597ec769.mp4)
+Here you can watch a [GAMEPLAY DEMO Video](https://user-images.githubusercontent.com/101864268/179424988-567a490a-441b-4563-90d8-d27e597ec769.mp4)
 
 
  

@@ -531,6 +531,13 @@ function render() {
   }
   
 
+  
+
+  water.material.uniforms[ 'time' ].value += 0.5 / 60.0;
+
+   }
+  
+  }
   var bullet_velocity=2;
   if (spacebarPressed){
     R1bullets.forEach(b => {
@@ -546,11 +553,6 @@ function render() {
         collision(b,p);
       });
     });
-  }
-
-  water.material.uniforms[ 'time' ].value += 0.5 / 60.0;
-
-   }
   }
 
 }

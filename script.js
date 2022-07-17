@@ -334,7 +334,11 @@ function generatePlane(){
   //setInterval(function() {generateEnemyBullet(enemies[enemies.length-1])}, 2000);
   console.log(enemies);
   var a = enemies[enemyId]
-  setInterval(function() {generateEnemyBullet(a)}, 2000);
+  setInterval(function() {
+    if(!pPressed){
+    generateEnemyBullet(a)
+    }
+  }, 2000);
   scene.add( enemy.mesh );
 
   

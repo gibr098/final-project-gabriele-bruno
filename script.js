@@ -597,13 +597,13 @@ console.log(pPressed);
     myObj.position.z -= 0.2;
     }
     else{
-      myObj.position.z= 120;
+      myObj.position.z= 150;
     }
     if(mill.position.z>-80){
       mill.position.z -= 0.2;
       }
       else{
-        mill.position.z= 120;
+        mill.position.z= 150;
       }
 
     render();

@@ -161,8 +161,8 @@ plane.playerLives=3;
 
 var plane1=new MODELS.Plane2();
 plane1.mesh.scale.set(0.5, 0.5, 0.5);
-//scene.add(plane1.mesh);
-//plane1.mesh.position.set(-25,0,40);
+scene.add(plane1.mesh);
+plane1.mesh.position.set(20,0,40);
 
 var plane2=new MODELS.Plane2();
 plane2.mesh.scale.set(0.5, 0.5, 0.5);
@@ -179,7 +179,7 @@ plane1.mesh.rotation.y=Math.PI;
 plane2.mesh.rotation.y=Math.PI;
 plane3.mesh.rotation.y=Math.PI;
 
-//enemies.push(plane1);
+enemies.push(plane1);
 //enemies.push(plane2);
 //enemies.push(plane3);
 

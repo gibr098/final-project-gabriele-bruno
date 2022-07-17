@@ -26,7 +26,7 @@ var mill
 
   
   const fov = 75;
-  const aspect = sizes.width / sizes.height;  // the canvas default
+  const aspect = window.innerWidth / window.innerHeight;  // the canvas default
   const near = 0.1;
   const far = 5;
   //const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
@@ -34,7 +34,7 @@ var mill
   //camera.position.z = 3;
   //camera.position.z = 6;
   function makeCamera(fov = 40) {
-    const aspect = sizes.width / sizes.height;  // the canvas default
+    const aspect = window.innerHeight / window.innerHeight;  // the canvas default
     const zNear = 0.1;
     const zFar = 1000;
     return new THREE.PerspectiveCamera(fov, aspect, zNear, zFar);
@@ -557,13 +557,13 @@ var t = 3500; // Timer
 
 
 
-window.addEventListener('resize', onWindowResize, false)
+/*window.addEventListener('resize', onWindowResize, false)
 function onWindowResize() {
     camera.aspect = sizes.width / sizes.height
     camera.updateProjectionMatrix()
     renderer.setSize(sizes.width, sizes.height)
     render()
-}
+}*/
 //onWindowResize()
 
 

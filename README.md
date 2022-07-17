@@ -2,6 +2,8 @@
 Final Project of Interactive Graphics course
 
 Play the game: https://sapienzainteractivegraphicscourse.github.io/final-project-gabriele-bruno/
+ 
+ We reccomend to run the game on Mozilla Fireforx or Microsoft Edge
 
 Group members:
 - [Gabriele Sirico](https://www.linkedin.com/in/giuseppe-gabriele-sirico-7aab03234/)

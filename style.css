@@ -72,8 +72,8 @@ html, body {
 	position: absolute;
   font-size: 30px;
 	top: 250px;
-	width: 200px;
-  right: 80px;
+	width: 100%;
+  left: 1250px;
 	display:block;
   color:green;
   font-family: "Copperplate", fantasy;

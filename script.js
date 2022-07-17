@@ -26,7 +26,7 @@ var mill
 
   
   const fov = 75;
-  const aspect = 2;  // the canvas default
+  const aspect = sizes.width / sizes.height;  // the canvas default
   const near = 0.1;
   const far = 5;
   //const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
@@ -34,7 +34,7 @@ var mill
   //camera.position.z = 3;
   //camera.position.z = 6;
   function makeCamera(fov = 40) {
-    const aspect = 2;  // the canvas default
+    const aspect = sizes.width / sizes.height;  // the canvas default
     const zNear = 0.1;
     const zFar = 1000;
     return new THREE.PerspectiveCamera(fov, aspect, zNear, zFar);

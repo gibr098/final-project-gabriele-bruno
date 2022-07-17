@@ -205,11 +205,6 @@ screen game area (x,z)
 
 
 
-
-
-
-
-
 //Keyboard arrows controlling
 document.addEventListener('keydown', keyDownHandler, false);
 document.addEventListener('keyup', keyUpHandler, false);

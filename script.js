@@ -557,13 +557,13 @@ var t = 3500; // Timer
 
 
 
-/*window.addEventListener('resize', onWindowResize, false)
+window.addEventListener('resize', onWindowResize, false)
 function onWindowResize() {
     camera.aspect = sizes.width / sizes.height
     camera.updateProjectionMatrix()
     renderer.setSize(sizes.width, sizes.height)
     render()
-}*/
+}
 //onWindowResize()
 
 

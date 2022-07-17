@@ -1,5 +1,4 @@
 import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r127/build/three.module.js'
-import { TrackballControls } from 'https://threejsfundamentals.org/threejs/resources/threejs/r127/examples/jsm/controls/TrackballControls.js'
 import * as MODELS from './mscript.js'
 import {resizeRendererToDisplaySize} from './functions.js'
 import {makeElementObject} from './functions.js'
@@ -25,14 +24,6 @@ function main() {
   camera.lookAt(0, 0, 0);
 
 
-const controls = new TrackballControls(camera, renderer.domElement );
-controls.rotateSpeed = 2.0;
-controls.zoomSpeed = 1.5;
-controls.panSpeed = 0.8;
-controls.noZoom = false;
-controls.noPan = false;
-controls.staticMoving = true;
-controls.dynamicDampingFactor = 0.3;
 
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0x92FFF8);
@@ -140,18 +131,9 @@ var selectedplane;
     var s=selectedplane;
   
   localStorage.setItem("plane", s);
-  
-    
-
-    
-
-    
-    
 
     //plane2.mesh.rotation.y+=0.02;
     plane2.propeller.rotation.z+=0.05;
-
-    controls.update();
 
 
     renderer.render(scene, camera);

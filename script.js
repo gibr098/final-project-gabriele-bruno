@@ -474,6 +474,7 @@ onWindowResize()
 const angle=Math.PI/6;
 
 function render() {
+  if(!gameover){
   if(!pPressed){
 
   const vel=1.0;
@@ -545,6 +546,7 @@ function render() {
   water.material.uniforms[ 'time' ].value += 0.5 / 60.0;
 
    }
+  }
 }
 
 function animate(){
@@ -558,7 +560,7 @@ console.log(pPressed);
     heart3.mesh.rotation.y+=0.03;
     dropHearts(plane,heart1,heart2,heart3);
     console.log(plane.playerLives);
-    plane.destroy();
+    plane.destroyPlayer();
     enemies.forEach(p=>{
       p.propeller.rotation.z+=0.5;
     })

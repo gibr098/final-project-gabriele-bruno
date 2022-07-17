@@ -564,7 +564,7 @@ function onWindowResize() {
     renderer.setSize(sizes.width, sizes.height)
     render()
 }
-onWindowResize()
+//onWindowResize()
 
 
 //const angle=Math.PI/6;

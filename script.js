@@ -13,7 +13,7 @@ import { randomPosition, Pause } from './functions.js';
 
 
 //import * as CONTROLS from './inputHandler.js'
-const sizes = {width: window.innerWidth, height: window.innerHeight}
+const sizes = {width: window.outerWidth, height: window.outerHeight}
 var enemyId=0;
 var ud=1;
 var uds=0;

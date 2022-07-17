@@ -372,10 +372,10 @@ function playerCollision(bullet, plane){
         (bullet.mesh.position.y<=plane.mesh.position.y+10 && bullet.mesh.position.y>=plane.mesh.position.y-10);
 
   if(cb){
-    plane.playerHit=true;
-    plane.removelife();
     bullet.mesh.position.set(0,-10,0);
     scene.remove(bullet.mesh);
+    plane.playerHit=true;
+    plane.removelife();
   }
 }
 

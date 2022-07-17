@@ -352,7 +352,7 @@ function collision(bullet, plane){
         (bullet.mesh.position.y<=plane.mesh.position.y+10 && bullet.mesh.position.y>=plane.mesh.position.y-10);
   if(c){
     plane.hit=true;
-    bullet.mesh.position.set(0,-100,0);
+    bullet.mesh.position.set(0,-10,0);
     scene.remove(bullet.mesh);
   }else{
     if(bullet.mesh.position.z>=60){
@@ -374,7 +374,7 @@ function playerCollision(bullet, plane){
   if(cb){
     plane.playerHit=true;
     plane.removelife();
-    bullet.mesh.position.set(0,-100,0);
+    bullet.mesh.position.set(0,-10,0);
     scene.remove(bullet.mesh);
   }
 }

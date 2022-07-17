@@ -282,34 +282,7 @@ screen game area (x,z)
 //generatePlane();
 
 
-enemies.push(plane1);
-//enemies.push(plane2);
-//enemies.push(plane3);
 
-
-
-
-/*function resizeRendererToDisplaySize(renderer) {
-  const canvas = renderer.domElement;
-  const width = canvas.clientWidth;
-  const height = canvas.clientHeight;
-  const needResize = canvas.width !== width || canvas.height !== height;
-  if (needResize) {
-    renderer.setSize(width, height, false);
-  }
-  return needResize;
-}
-*/
-
-
-//Mouse control
-/*
-  document.addEventListener("mousemove", mouseMoveHandler);
-  function mouseMoveHandler(e) {
-    plane.mesh.position.x = -(e.pageX - canvas.offsetLeft);
-    plane.mesh.position.z = -(e.pageY - canvas.offsetTop);
-  }
-*/
 
 
 

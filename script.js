@@ -440,7 +440,7 @@ var t = 3500; // Timer
           if(!pPressed){
             clearInterval(interval);
             generatePlane();
-            generatePlane();
+            //generatePlane();
             console.log(t);
             changeTimer();
             interval = setInterval(f1, t);

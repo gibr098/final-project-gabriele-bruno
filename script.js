@@ -143,7 +143,13 @@ var enemy;
 
 
 var plane;
-var selectedplane=localStorage.getItem("plane");
+
+var selectedplane;
+if(localStorage.getItem("plane")== null){
+  selectedplane=1;
+}else{
+  selectedplane=localStorage.getItem("plane");
+}
 
 if(selectedplane==1){
   plane=new MODELS.Plane();

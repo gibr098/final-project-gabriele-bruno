@@ -162,7 +162,7 @@ plane.playerLives=3;
 var plane1=new MODELS.Plane2();
 plane1.mesh.scale.set(0.5, 0.5, 0.5);
 scene.add(plane1.mesh);
-plane1.mesh.position.set(20,0,40);
+plane1.mesh.position.set(-250,0,40);
 
 var plane2=new MODELS.Plane2();
 plane2.mesh.scale.set(0.5, 0.5, 0.5);
@@ -216,7 +216,7 @@ var pPressed = false;
 var spacebarPressed=false;
 var R1bullets=[];
 var L1bullets=[];
-var flag=true;
+var gameover=false;
 
 
 
@@ -242,22 +242,17 @@ function keyDownHandler(event) {
 
   //pause game with key p
   if(event.keyCode==80){
+    if(!gameover){
+
     if(!pPressed){pPressed = true}
 
     else{pPressed = false}
-    
 
     Pause();
-
+    }
 
   }
- 
 
-  //spawn plane key s
-  if(event.keyCode==83){
-    generatePlane()
-    console.log(enemies)
-  }
 }
 
 
@@ -334,12 +329,14 @@ function generatePlane(){
 
   enemy.mesh.scale.set(0.5, 0.5, 0.5)
   enemy.mesh.rotation.y=Math.PI;
-  scene.add( enemy.mesh );
+  
   enemies.push(enemy);
   //setInterval(function() {generateEnemyBullet(enemies[enemies.length-1])}, 2000);
   console.log(enemies);
   var a = enemies[enemyId]
   setInterval(function() {generateEnemyBullet(a)}, 2000);
+  scene.add( enemy.mesh );
+
   
   
   
@@ -395,6 +392,7 @@ function dropHearts(p,h1,h2,h3){
   else if(p.playerLives<=0){
     h3.fall();h2.fall();h1.fall();
     document.getElementById("gameover").style.display="block";
+    gameover=true;
     setTimeout(function(){
       window.location.href = './index.html';
    }, 4000);
@@ -438,7 +436,7 @@ var t = 3500; // Timer
 
 
 //spawn an enemy plane each second
-//setInterval(function() {generatePlane();}, 3000);
+//setInterval(function() {generatePlane();}, 2000);
 
 
 
@@ -461,10 +459,11 @@ onWindowResize()
 //const angle=Math.PI/6;
   
   //requestAnimationFrame(render);
+  /*
   enemies.forEach(p => {
     setInterval(function() {generateEnemyBullet(p)}, 2000);
   
-  });
+  });*/
 
 
 const angle=Math.PI/6;

@@ -13,7 +13,7 @@ import { randomPosition, Pause } from './functions.js';
 
 
 //import * as CONTROLS from './inputHandler.js'
-const sizes = {width: window.innerWidth, height: window.innerHeight}
+const sizes = {width: document.body.clientWidth, height: document.body.clientHeight}
 var enemyId=0;
 var ud=1;
 var uds=0;
@@ -26,7 +26,7 @@ const renderer = new THREE.WebGLRenderer({canvas});
 
   
   const fov = 75;
-  const aspect = 2;  // the canvas default
+  const aspect = sizes.width / sizes.height;  // the canvas default
   const near = 0.1;
   const far = 5;
   //const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
@@ -34,7 +34,7 @@ const renderer = new THREE.WebGLRenderer({canvas});
   //camera.position.z = 3;
   //camera.position.z = 6;
   function makeCamera(fov = 40) {
-    const aspect = 2;  // the canvas default
+    const aspect = sizes.width / sizes.height;  // the canvas default
     const zNear = 0.1;
     const zFar = 1000;
     return new THREE.PerspectiveCamera(fov, aspect, zNear, zFar);
@@ -624,9 +624,9 @@ var t = 3500; // Timer
 
 window.addEventListener('resize', onWindowResize, false)
 function onWindowResize() {
-    camera.aspect = window.innerWidth / window.innerHeight
+    camera.aspect = sizes.width / sizes.height
     camera.updateProjectionMatrix()
-    renderer.setSize(window.innerWidth, window.innerHeight)
+    renderer.setSize(sizes.width, sizes.height)
     render()
 }
 onWindowResize()

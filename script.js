@@ -18,10 +18,10 @@ var enemyId=0;
 var ud=1;
 var uds=0;
 var mill
-  var shark
-  var myObj
-  const canvas = document.querySelector('#c');
-  const renderer = new THREE.WebGLRenderer({canvas});
+var shark
+var myObj
+const canvas = document.querySelector('#c');
+const renderer = new THREE.WebGLRenderer({canvas});
 
 
   
@@ -199,6 +199,24 @@ plane.position.set(0,0,0);
 plane.scale.set(0.5,0.5,0.5);
 */
 
+
+var heart1= new MODELS.Heart();
+var heart2= new MODELS.Heart();
+var heart3= new MODELS.Heart();
+heart1.mesh.scale.set(0.3,0.3,0.3)
+heart2.mesh.scale.set(0.3,0.3,0.3)
+heart3.mesh.scale.set(0.3,0.3,0.3)
+heart1.mesh.position.set(85,20,35);
+heart2.mesh.position.set(80,20,35);
+heart3.mesh.position.set(75,20,35);
+
+
+scene.add(heart1.mesh);
+scene.add(heart2.mesh);
+scene.add(heart3.mesh);
+
+
+
 var enemies=[];
 var enemy;
 
@@ -218,10 +236,14 @@ plane.mesh.scale.set(0.5, 0.5, 0.5);
 plane.mesh.position.set(0, 0, -30);
 scene.add(plane.mesh);
 
+plane.playerLives=3;
+
+
+
 var plane1=new MODELS.Plane2();
 plane1.mesh.scale.set(0.5, 0.5, 0.5);
-scene.add(plane1.mesh);
-plane1.mesh.position.set(-25,0,40);
+//scene.add(plane1.mesh);
+//plane1.mesh.position.set(-25,0,40);
 
 var plane2=new MODELS.Plane2();
 plane2.mesh.scale.set(0.5, 0.5, 0.5);
@@ -512,9 +534,52 @@ function collision(bullet, plane){
     //console.log(c,"NO collision");
   }
 }
+
+
+
+
+
+function playerCollision(bullet, plane){
+  var cb=(bullet.mesh.position.x<=plane.mesh.position.x+10 && bullet.mesh.position.x>=plane.mesh.position.x-10) &&
+        (bullet.mesh.position.z<=plane.mesh.position.z+10 && bullet.mesh.position.z>=plane.mesh.position.z-10) &&
+        (bullet.mesh.position.y<=plane.mesh.position.y+10 && bullet.mesh.position.y>=plane.mesh.position.y-10);
+
+  if(cb){
+    plane.playerHit=true;
+    plane.removelife();
+    bullet.mesh.position.set(0,-10,0);
+    scene.remove(bullet.mesh);
+  }
+}
+
+function enemyCollision(plane, enemy){
+  var cp=(plane.mesh.position.x<=enemy.mesh.position.x+10 && plane.mesh.position.x>=enemy.mesh.position.x-10) &&
+  (plane.mesh.position.z<=enemy.mesh.position.z+10 && plane.mesh.position.z>=enemy.mesh.position.z-10) &&
+  (plane.mesh.position.y<=enemy.mesh.position.y+10 && plane.mesh.position.y>=enemy.mesh.position.y-10);
+
+  if(cp){
+    plane.playerHit=true;
+    plane.removelife();
+  }
+}
+
+function dropHearts(p,h1,h2,h3){
+  if (p.playerLives==2){ h1.fall()}
+  else if (p.playerLives==1){h2.fall();h1.fall()}
+  else if(p.playerLives<=0){
+    h3.fall();h2.fall();h1.fall();
+    document.getElementById("gameover").style.display="block";
+    setTimeout(function(){
+      window.location.href = './index.html';
+   }, 4000);
+
+  }
+
+}
+
 //_____________________________________________________________
 //gradually spawn enemies
-/*
+
 
 var t = 3500; // Timer
 
@@ -545,7 +610,7 @@ var t = 3500; // Timer
 
 
 
-*/
+
 //spawn an enemy plane each second
 //setInterval(function() {generatePlane();}, 3000);
 
@@ -600,7 +665,7 @@ function render() {
   //plane.rotation.z=2*time;
   
   const vel=1.0;
-  if(rightPressed&& plane.mesh.position.x>-90) {
+  if(rightPressed && plane.mesh.position.x>-90) {
     plane.mesh.position.x -= vel;
     if(plane.mesh.rotation.z < angle){
       plane.mesh.rotation.z+=0.05;
@@ -695,13 +760,17 @@ function render() {
 }
 
 function animate(){
-  
-  
 
     requestAnimationFrame(animate)
     renderer.render(scene,camera)
     const time = performance.now() * 0.001;
     plane.propeller.rotation.z=20*time;
+    heart1.mesh.rotation.y+=0.03;
+    heart2.mesh.rotation.y+=0.03;
+    heart3.mesh.rotation.y+=0.03;
+    dropHearts(plane,heart1,heart2,heart3);
+    console.log(plane.playerLives);
+    plane.destroy();
     enemies.forEach(p=>{
       p.propeller.rotation.z+=0.5;
     })
@@ -711,13 +780,16 @@ function animate(){
       p.movePlanePattern2(0.5,0.3);
       p.shoot();
       p.destroy();
+      //enemyCollision(plane,p);
       p.R1bullets.forEach(br1=>{
+        playerCollision(br1,plane);
         if(br1.mesh.position.z<-80){
           scene.remove(br1.mesh);
         }
       });
 
       p.L1bullets.forEach(bl1=>{
+        playerCollision(bl1,plane);
         if(bl1.mesh.position.z<-80){
           scene.remove(bl1.mesh);
         }

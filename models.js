@@ -40,6 +40,8 @@ controls.dynamicDampingFactor = 0.3;
 
   var plane1 = new MODELS.Plane();
   var plane2 = new MODELS.Plane2();
+
+
   plane1.mesh.position.set(0,0,0);
   //scene.add(plane1.mesh);
   plane2.mesh.position.set(50,0,0);
@@ -88,7 +90,12 @@ var selectedplane;
     }
 
     //plane.mesh.rotation.y+=0.02;
-    plane1.propeller.rotation.z+=0.05;
+
+    plane1.propeller.rotation.z+=0.05; 
+
+
+
+
     //plane1.mesh.rotation.y+=0.02;
     //plane2.mesh.rotation.y+=0.02;
 

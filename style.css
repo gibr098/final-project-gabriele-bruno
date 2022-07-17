@@ -92,6 +92,18 @@ html, body {
   font-family: "Copperplate", fantasy;
 }
 
+#credits {
+	position: absolute;
+  font-size: 30px;
+	top: 250px;
+	width: 100%;
+	text-align: center;
+	display:block;
+  color:green;
+  font-family: "Copperplate", fantasy;
+  
+}
+
 #gameover {
 	position: absolute;
   font-size: 100px;

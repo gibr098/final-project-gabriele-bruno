@@ -341,9 +341,7 @@ function generatePlane(){
   }, 2000);
   scene.add( enemy.mesh );
 
-  
-  
-  
+
 }
 
 function collision(bullet, plane){

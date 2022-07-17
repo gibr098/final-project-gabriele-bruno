@@ -12,6 +12,27 @@ html, body {
     z-index: 1;  
 }
 
+#shoot {
+	position: absolute;
+	top: 450px;
+  right:60px;
+	width: 100px;
+	text-align: center;
+	z-index: 100;
+	display:block;
+
+}
+
+#move {
+	position: absolute;
+	top: 300px;
+  right:20px;
+	width: 200px;
+	text-align: center;
+	z-index: 100;
+	display:block;
+
+}
 
 
 
@@ -37,27 +58,6 @@ html, body {
   text-shadow: .1em .1em 0 hsl(200 50% 30%);
 }
 
-#shoot {
-	position: absolute;
-	top: 450px;
-  right:60px;
-	width: 100px;
-	text-align: center;
-	z-index: 100;
-	display:block;
-
-}
-
-#move {
-	position: absolute;
-	top: 300px;
-  right:20px;
-	width: 200px;
-	text-align: center;
-	z-index: 100;
-	display:block;
-
-}
 
 #pause {
 	position: absolute;

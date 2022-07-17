@@ -7,7 +7,7 @@ We reccomend to run the game on Mozilla Fireforx or Microsoft Edge
  
  
 GAMEPLAY DEMO:
-https://user-images.githubusercontent.com/101864268/179424988-567a490a-441b-4563-90d8-d27e597ec769.mp4
+[![Watch the video](https://user-images.githubusercontent.com/101864268/179424988-567a490a-441b-4563-90d8-d27e597ec769.mp4)
 
 
  

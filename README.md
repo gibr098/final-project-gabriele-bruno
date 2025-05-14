@@ -1,4 +1,4 @@
-# final-project-gabriele-bruno
+# WARPLANES
 ## Final Project of Interactive Graphics course
 
 Play the game: https://sapienzainteractivegraphicscourse.github.io/final-project-gabriele-bruno/

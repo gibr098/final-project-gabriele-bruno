@@ -1,7 +1,7 @@
 # WARPLANES
 ## Final Project of Interactive Graphics course
 
-Play the game: https://sapienzainteractivegraphicscourse.github.io/final-project-gabriele-bruno/
+Click [here](https://gibr098.github.io/final-project-gabriele-bruno/) to play the game!
 
 We reccomend to run the game on Mozilla Fireforx or Microsoft Edge
  
